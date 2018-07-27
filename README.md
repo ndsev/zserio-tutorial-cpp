@@ -66,7 +66,7 @@ But before we can generate code, we need to write the schema definition of our d
 
 ## Writing a schema
 
-Open up your favorite text editor and start writing your schema. We will use the example from above plus some additional structures to showcase some of zserio's features.
+Open up your favorite text editor and start writing your schema. We will use the example from the zserio repo plus some additional structures to showcase some of zserio's features.
 
 ```
 package tutorial;
@@ -121,18 +121,22 @@ We have added some of zserio's features above. Let's quickly take a look:
 
     We add programming skills only if the employee is developer.
 
+- **bit sized elements**
+
+  The struct `Experience` uses 1 byte in total. It uses 6 bit to store the years of programming experience and 2 bits for the enum `Language`.
+
 For more details on the features of zserio head over to the [zserio language overview](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/ZserioLanguageOverview.md).
 
 
 We now save the file to disk as `tutorial.zs`.
 
 >Please note that the filename has to be equivalent to the package name inside the zserio file.
-The zserio compiler accepts arbitrary file extensions (in this case `*.zs`). But make sure that all imported files have also the same file extension.
+The zserio compiler accepts arbitrary file extensions (in this case `*.zs`). But make sure that all imported files also have the same file extension.
 
 
 ## Compiling and generating code
 
-We now are ready to compile the schema with the zserio compiler. The zserio compiler checks the schema file and its [imported files](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/PackagesAndImports.md) and reports errors and warnings.
+Now we are ready to compile the schema with the zserio compiler. The zserio compiler checks the schema file and its [imported files](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/PackagesAndImports.md) and reports errors and warnings.
 In addition, the zserio compiler generates code for the supported languages and may generate HTML documentation. For a complete overview of available options, please refer to the [zserio compiler User Guide](https://github.com/welovemaps/zserio/doc/zserioCompilerUserGuide.md).
 
 So let's generate some C++ code:
@@ -165,7 +169,7 @@ We now have everything ready to serialize and deserialize our data.
 
 ## Serialize using the generated code
 
-> Note: The code in this repository features the creation of two objects of class Employee: Joe and his boss. We will mostly cover the creation of Joe here.
+> Note: The example code in this repository features the creation of two objects of class Employee: Joe and his boss. We will mostly cover the creation of Joe here.
 
 
 Before we start programming, let's have cmake generate our project:
@@ -192,7 +196,7 @@ joe.setName("Joe Smith");
 joe.setSalary(5000);
 joe.setRole(tutorial::Role::DEVELOPER);
 ```
-To be able to populate a list of skill, we need to declare a zserio object array template of type Experience:
+To be able to populate a list of skills, we need to declare a zserio object array template of type Experience:
 
 ```cpp
 zserio::ObjectArray<tutorial::Experience> skills;
@@ -224,7 +228,7 @@ Don't forget to set Joe's experience:
 joe.setSkills(skills);
 ```
 
-So after we have set all the fields, we have to declare a BitStream writer and write the stream:
+After we have set all the fields, we have to declare a BitStream writer and write the stream:
 
 ```cpp
 zserio::BitStreamWriter writer;
@@ -238,16 +242,18 @@ size_t size;
 const uint8_t* buffer = writer.getWriteBuffer(size);
 ```
 
-We may now write the stream to disk using:
+and may now write the stream to disk using:
 
 ```cpp
 std::ofstream os("tutorial.zsb", std::ofstream::binary);
 os.write(reinterpret_cast<const char*>(buffer), size);
 os.close();
 ```
-Or use the buffer for any other purposes like sending it over rpc or use it internally.
+You could also use the buffer for any other purpose like sending it over rpc or use it internally.
 
-Voila! You have just serialized your first data with zserio. Congratulations!
+**Voila!** You have just serialized your first data with zserio.
+
+**Congratulations!**
 
 
 ## Deserialize using the generated code
@@ -288,7 +294,7 @@ tutorial::Employee employee;
 employee.read(reader);
 ```
 
-We can now access the filled employee object via their respective getters. We still need to check for optionals and conditionals whether they have been set.
+We can now access the filled employee object via the respective getters. We still need to check for optionals and conditionals whether they have been set.
 
 ```cpp
 /* Data types that are always available can simply be assigned */
@@ -348,4 +354,22 @@ Examples for when an exception will be thrown:
   If there are conditions in the schema that require a certain field to be set to specific value, the BitStreamWriter will throw an exception if you try to set the field without the condition being met.
   >Example: Try setting programming skills for Joe's boss.
 
-  
+### zserio API calls
+
+The example uses two smaller features that we would like to explain.
+
+You can simply access the symbol name of any enumeration as a string:
+```cpp
+tutorial::Language lang = experience.getProgrammingLanguage();
+
+/* Get string representation of Language enum value */
+std::string lang_str = lang.toString();
+```
+Of course checking for the value has better runtime performance once you do comparisons. But for debug purposes or similar this might come handy sometimes.
+
+The other feature is that you can always retrieve the actual bit size of the structures in zserio by calling `bitSizeOf()`.
+
+In the tutorial we use it form plain informational purpose.
+```cpp
+std::cout << "Bit size of employee: " << (int)employee.bitSizeOf();
+```

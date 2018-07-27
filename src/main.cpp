@@ -75,7 +75,7 @@ int main(int argc, char** argv)
 
 		/* Fill some basic type fields */
 		boss.setAge(43);
-		boss.setName("Joe's Boss");
+		boss.setName("Boss");
 		boss.setSalary(9000);
 
 		/* Set an enum value, in this case the role */
@@ -175,6 +175,7 @@ int main(int argc, char** argv)
 		std::cout << "Salary: " << salary << "\n";
 		std::cout << "Bonus: " << bonus << "\n";
 		std::cout << skill_str.str() ;
+		std::cout << "Bit size of employee: " << (int)employee.bitSizeOf();
 	}
 	return 0;
 }
