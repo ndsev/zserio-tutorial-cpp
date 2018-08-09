@@ -1,6 +1,6 @@
-# zserio C++ Quick Start Tutorial
+# Zserio C++ Quick Start Tutorial
 
-This Quick Start tutorial features code generation in C++. Go to the [zserio JAVA tutorial](https://) if you are interested in hands-on JAVA with zserio.
+This Quick Start tutorial features code generation in C++. Go to the [Zserio JAVA tutorial](https://) if you are interested in hands-on JAVA with zserio.
 
 You find the complete tutorial in this example. To follow along the description just clone the repo and check the sources. For convenience and compatibility reasons we have included the runtime in this repository, although we describe how to obtain it below.
 
@@ -11,15 +11,15 @@ Before we start, make sure you have the following components installed:
 - JAVA JRE
 - CMake
 
-The easiest way of compiling the schema is to download the latest build of the zserio compiler from [zserio Releases](https://github.com/welovemaps/zserio/releases).
+The easiest way of compiling the schema is to download the latest build of the zserio compiler from [Zserio Releases](https://github.com/welovemaps/zserio/releases).
 
-If you want to  build from source, please follow the [Build Instructions for zserio Compiler](https://github.com/welovemaps/doc/zserio-compiler.md).
+If you want to  build from source, please follow the [Build Instructions for Zserio Compiler](https://github.com/welovemaps/doc/zserio-compiler.md).
 
 ## Set up dev environment and zserio runtime
 
 We start with a common layout of our project/repo where we put all the source files into a `src` folder and all 3rd party stuff into `3rdparty`. For simplicity the zserio schema file stays in the project's root folder.
 
-Download the latest C++ runtime from [zserio Releases](https://github.com/welovemaps/zserio/releases) and store it into a `runtimes` subfolder in `3rdparty`.
+Download the latest C++ runtime from [Zserio Releases](https://github.com/welovemaps/zserio/releases) and store it into a `runtimes` subfolder in `3rdparty`.
 
 So our folder structure looks like this:
 ```
@@ -109,13 +109,13 @@ We have added some of zserio's features above. Let's quickly take a look:
 
 - **constraints**
 
-  Although the `uint8` of field `age` would allow values up to 255, we limit the use already in the schema definition by using a [constraint](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/CompoundTypes.md#constraints)
+  Although the `uint8` of field `age` would allow values up to 255, we limit the use already in the schema definition by using a [constraint](https://github.com/welovemaps/zserio/blob/master/doc/ZserioLanguageOverview.md#constraints)
   If we try to write values larger than 65, the generated writers will throw an exception.
 
 - **optional fields**
 
   The `bonus` field is prefixed with the keyword `optional` which will add a invisible 1-bit bool before that field which indicates whether the field exists. If it is not set then only one bit will be added to the byte stream.
-  See [Zserio Invisibles](https://github.com/welovemaps/zserio/doc/ZserioInvisibles.md) for more information.
+  See [Zserio Invisibles](https://github.com/welovemaps/zserio/blob/master/doc/ZserioInvisibles.md) for more information.
 
 - **conditions**
 
@@ -125,7 +125,7 @@ We have added some of zserio's features above. Let's quickly take a look:
 
   The struct `Experience` uses 1 byte in total. It uses 6 bit to store the years of programming experience and 2 bits for the enum `Language`.
 
-For more details on the features of zserio head over to the [zserio language overview](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/ZserioLanguageOverview.md).
+For more details on the features of zserio head over to the [Zserio Language Overview](https://github.com/welovemaps/zserio/blob/master/doc/ZserioLanguageOverview.md).
 
 
 We now save the file to disk as `tutorial.zs`.
@@ -136,8 +136,8 @@ The zserio compiler accepts arbitrary file extensions (in this case `*.zs`). But
 
 ## Compiling and generating code
 
-Now we are ready to compile the schema with the zserio compiler. The zserio compiler checks the schema file and its [imported files](https://github.com/welovemaps/zserio/doc/ZserioLanguageOverview/PackagesAndImports.md) and reports errors and warnings.
-In addition, the zserio compiler generates code for the supported languages and may generate HTML documentation. For a complete overview of available options, please refer to the [zserio compiler User Guide](https://github.com/welovemaps/zserio/doc/zserioCompilerUserGuide.md).
+Now we are ready to compile the schema with the zserio compiler. The zserio compiler checks the schema file and its [imported files](https://github.com/welovemaps/zserio/blob/master/doc/ZserioLanguageOverview.md#packages-and-imports) and reports errors and warnings.
+In addition, the zserio compiler generates code for the supported languages and may generate HTML documentation. For a complete overview of available options, please refer to the [Zserio Compiler User Guide](https://github.com/welovemaps/zserio/blob/master/doc/ZserioCompilerUserGuide.md).
 
 So let's generate some C++ code:
 
@@ -202,7 +202,7 @@ To be able to populate a list of skills, we need to declare a zserio object arra
 zserio::ObjectArray<tutorial::Experience> skills;
 ```
 
-You can find a full list of available zserio templates in the [C++ zserio API overview](https://github.com/welovemaps/zserio/doc/ZserioCppAPI.md)
+You can find a full list of available zserio templates in the [Zserio C++ API overview](https://github.com/welovemaps/zserio/blob/master/doc/ZserioCppAPI.md)
 
 So now let's generate two entries for the skills list:
 
@@ -325,7 +325,7 @@ briefly:
 - zserio runtime exception handling
 - some zserio API calls
 
-### zserio runtime exceptions
+### Zserio runtime exceptions
 
 The zserio runtime throws two exceptions. The `zserio::CppRuntimeException` and the `zserio::BitStreamException`.
 
@@ -345,7 +345,7 @@ catch (zserio::CppRuntimeException &e)
 Examples for when an exception will be thrown:
 - **Data type range exceptions**
 
-  zserio types get mapped to C++ STL types of a bigger type sometimes (e.g. bit:2 to uint8_t). You may assign values that fit into the STL type which will compile fine, but the BitStreamWriter will throw an exception if it does not fit into the zserio schema.
+  Zserio types get mapped to C++ STL types of a bigger type sometimes (e.g. bit:2 to uint8_t). You may assign values that fit into the STL type which will compile fine, but the BitStreamWriter will throw an exception if it does not fit into the zserio schema.
   The same applies to constraints.
   >(Example: Try to give Joe a programming experience of 100 years or make him 100 years old)
 
@@ -354,7 +354,7 @@ Examples for when an exception will be thrown:
   If there are conditions in the schema that require a certain field to be set to specific value, the BitStreamWriter will throw an exception if you try to set the field without the condition being met.
   >Example: Try setting programming skills for Joe's boss.
 
-### zserio API calls
+### Zserio API calls
 
 The example uses two smaller features that we would like to explain.
 
