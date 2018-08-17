@@ -36,14 +36,14 @@ static void writeJoe(const std::string& employeeFile)
 
     /* fill a second one... */
     tutorial::Experience skill2;
-    skill2.setProgrammingLanguage(tutorial::Language::PYTHON);
     skill2.setYearsOfExperience(4);
+    skill2.setProgrammingLanguage(tutorial::Language::PYTHON);
     skills.push_back(skill2);
 
     /* assign the zserio object array to object joe */
     joe.setSkills(skills);
 
-    /* declare a zserio BitStream writer */
+    /* declare a zserio BitStreamWriter */
     zserio::BitStreamWriter writer;
 
     /* serialize the object joe by passing the BitStreamWriter to its write() method */
@@ -69,7 +69,7 @@ static void writeBoss(const std::string& employeeFile)
     /* no programming skills for the boss, but a bonus! */
     boss.setBonus(10000);
 
-    /* declare a zserio BitStream writer */
+    /* declare a zserio BitStreamWriter */
     zserio::BitStreamWriter writer;
 
     /* serialize the object boss by passing the BitStreamWriter to its write() method */
@@ -88,27 +88,20 @@ static void readEmployee(const std::string& employeeFile)
     tutorial::Employee employee;
     employee.read(reader);
 
-    /* data types that are always available can simply be assigned */
-    const std::string name = employee.getName();
-    const uint8_t age = employee.getAge();
-    const uint16_t salary = employee.getSalary();
-    const tutorial::Role role = employee.getRole();
+    /* data types that are always available can simply be printed out */
+    std::cout << "Name: " << employee.getName() << std::endl;
+    std::cout << "Age: " << static_cast<unsigned int>(employee.getAge()) << std::endl;
+    std::cout << "Salary: " << employee.getSalary() << std::endl;
+    std::cout << "Role: " << employee.getRole().toString() << std::endl;
 
     /* we have to check for optionals whether they are in the stream */
-    uint16_t bonus = 0;
     if (employee.hasBonus())
-        bonus = employee.getBonus();
+        std::cout << "Bonus: " << employee.getBonus() << std::endl;
 
     /* we also have to check for conditions if they applied */
-    zserio::ObjectArray<tutorial::Experience> skills;
     if (employee.hasSkills())
-        skills = employee.getSkills();
-
-    /* process all skills, in this case copy all skills to an output string */
-    std::stringstream skillsStream;
-    if (!skills.empty())
     {
-        /* read out each programming skill */
+        const zserio::ObjectArray<tutorial::Experience> skills  = employee.getSkills();
         for (zserio::ObjectArray<tutorial::Experience>::const_iterator it = skills.begin();
                 it != skills.end(); ++it)
         {
@@ -118,17 +111,12 @@ static void readEmployee(const std::string& employeeFile)
             /* get string representation of Language enum value */
             const std::string languageString = language.toString();
 
-            /* add to result string stream */
-            skillsStream << "Skill: Language " << languageString << ", " << (int)years << " years" << std::endl;
+            std::cout << "Skill: Language " << languageString << ", " << static_cast<unsigned int>(years) <<
+                    " years" << std::endl;
         }
     }
 
-    // print out the contents of Employee
-    std::cout << "Name: " << name << std::endl;
-    std::cout << "Age: " << (int)age << std::endl;
-    std::cout << "Salary: " << salary << std::endl;
-    std::cout << "Bonus: " << bonus << std::endl;
-    std::cout << skillsStream.str();
+    /* print out bit size */
     std::cout << "Bit size of employee: " << employee.bitSizeOf() << std::endl;
 }
 

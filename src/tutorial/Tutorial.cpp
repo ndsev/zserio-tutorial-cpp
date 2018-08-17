@@ -92,16 +92,12 @@ Language Language::toEnum(uint8_t rawValue)
     {
     case UINT8_C(0):
         return CPP;
-
     case UINT8_C(1):
         return JAVA;
-
     case UINT8_C(2):
         return PYTHON;
-
     case UINT8_C(3):
         return JS;
-
     default:
         throw zserio::CppRuntimeException("Unknown value for enumeration Language: " +
                 zserio::convertToString(rawValue) + "!");
@@ -202,13 +198,10 @@ Role Role::toEnum(uint8_t rawValue)
     {
     case UINT8_C(0):
         return DEVELOPER;
-
     case UINT8_C(1):
         return TEAM_LEAD;
-
     case UINT8_C(2):
         return CTO;
-
     default:
         throw zserio::CppRuntimeException("Unknown value for enumeration Role: " +
                 zserio::convertToString(rawValue) + "!");

@@ -242,8 +242,8 @@ and then also some Python experience:
 
 ```cpp
 tutorial::Experience skill2;
-skill2.setProgrammingLanguage(tutorial::Language::PYTHON);
 skill2.setYearsOfExperience(4);
+skill2.setProgrammingLanguage(tutorial::Language::PYTHON);
 skills.push_back(skill2);
 ```
 
@@ -315,21 +315,15 @@ We can now access the filled employee object via the respective getters. We stil
 and conditionals whether they have been set.
 
 ```cpp
-/* data types that are always available can simply be assigned */
-const std::string name = employee.getName();
-const uint8_t age = employee.getAge();
-const uint16_t salary = employee.getSalary();
-const tutorial::Role role = employee.getRole();
+/* data types that are always available can simply be printed out */
+std::cout << "Name: " << employee.getName() << std::endl;
+std::cout << "Age: " << static_cast<unsigned int>(employee.getAge()) << std::endl;
+std::cout << "Salary: " << employee.getSalary() << std::endl;
+std::cout << "Role: " << employee.getRole().toString() << std::endl;
 
 /* we have to check for optionals whether they are in the stream */
-uint16_t bonus = 0;
 if (employee.hasBonus())
-    bonus = employee.getBonus();
-
-/* we also have to check for conditions if they applied */
-zserio::ObjectArray<tutorial::Experience> skills;
-if (employee.hasSkills())
-    skills = employee.getSkills();
+    std::cout << "Bonus: " << employee.getBonus() << std::endl;
 ```
 
 For the rest of the processing please refer to the code. You should have gotten the main point by now.
