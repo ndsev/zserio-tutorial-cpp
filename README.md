@@ -97,15 +97,15 @@ enum bit:2 Language
 {
     CPP     = 0,
     JAVA    = 1,
-    PYTHON  = 3,
-    JS      = 4
+    PYTHON  = 2,
+    JS      = 3
 };
 
 enum uint8 Role
 {
     DEVELOPER = 0,
     TEAM_LEAD = 1,
-    CTO       = 2,
+    CTO       = 2
 };
 ```
 
