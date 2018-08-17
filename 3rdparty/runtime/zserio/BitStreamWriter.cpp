@@ -1,10 +1,12 @@
 #include <cstring>
+#include <fstream>
 
 #include "BitStreamException.h"
 #include "CppRuntimeException.h"
 #include "StringConvertUtil.h"
 #include "BitPositionUtil.h"
 #include "BitSizeOfCalculator.h"
+#include "FloatUtil.h"
 #include "BitStreamWriter.h"
 
 namespace zserio
@@ -213,86 +215,39 @@ void BitStreamWriter::writeVarUInt16(uint16_t data)
             getBitSizeOfVarUInt16(data));
 }
 
+void BitStreamWriter::writeVarInt(int64_t data)
+{
+    static const uint8_t valBitsVarInt[] = { 6, 7, 7, 7, 7, 7, 7, 7, 8 };
+    if (data == INT64_MIN)
+        writeBits(0x80, 8); // INT64_MIN is encoded as -0
+    else
+        writeVarNum(data, valBitsVarInt, sizeof(valBitsVarInt) / sizeof(valBitsVarInt[0]),
+                getBitSizeOfVarInt(data));
+}
+
+void BitStreamWriter::writeVarUInt(uint64_t data)
+{
+    static const uint8_t valBitsVarUInt[] = { 7, 7, 7, 7, 7, 7, 7, 7, 8 };
+    writeVarAbsNum(data, false, valBitsVarUInt, sizeof(valBitsVarUInt) / sizeof(valBitsVarUInt[0]),
+            getBitSizeOfVarUInt(data));
+}
+
 void BitStreamWriter::writeFloat16(float data)
 {
-    // Converts a 32 bit floating point number to a 16bit unsigned integer.
-    // The original code comes from:
-    // http://www.mathworks.com/matlabcentral/fileexchange/23173-ieee-754r-half-precision-floating-point-converter
+    const uint16_t halfPrecisionFloat = convertFloatToUInt16(data);
+    writeUnsignedBits(halfPrecisionFloat, 16);
+}
 
-    uint16_t result = 0;
+void BitStreamWriter::writeFloat32(float data)
+{
+    const uint32_t singlePrecisionFloat = convertFloatToUInt32(data);
+    writeUnsignedBits(singlePrecisionFloat, 32);
+}
 
-    uint32_t const* intData = reinterpret_cast<uint32_t*>(&data);
-    const uint32_t bits = *intData;
-
-    if ((bits & UINT32_C(0x7FFFFFFF)) == 0) // Signed zero
-    {
-        result = uint16_t(bits >> 16);  // Return the signed zero
-    }
-    else
-    {
-        uint32_t xs = bits & UINT32_C(0x80000000);  // Pick off sign bit
-        uint32_t xe = bits & UINT32_C(0x7F800000);  // Pick off exponent bits
-        uint32_t xm = bits & UINT32_C(0x007FFFFF);  // Pick off mantissa bits
-
-        if (xe == 0)
-        {
-            // Denormal will underflow, return a signed zero
-            result = uint16_t(xs >> 16);
-        }
-        else if (xe == UINT32_C(0x7F800000))
-        {
-            // Inf or NaN (all the exponent bits are set)
-            if (xm == 0)
-            {
-                // If mantissa is zero ...
-                result = static_cast<uint16_t>((xs >> 16) | UINT16_C(0x7C00)); // Signed Inf
-            }
-            else
-            {
-                result = UINT16_C(0xFE00); // NaN, only 1st mantissa bit set
-            }
-        }
-        else
-        {
-            // Normalized number
-            uint16_t hs = static_cast<uint16_t>(xs >> 16); // Sign bit
-            int hes = static_cast<int>(xe >> 23) - 127 + 15; // Exponent unbias the single, then bias the halfp
-            uint16_t hm = 0;
-            if (hes >= 0x1F)
-            {
-                // Overflow
-                result = static_cast<uint16_t>((xs >> 16) | UINT16_C(0x7C00)); // Signed Inf
-            }
-            else if (hes <= 0)
-            {
-                // Underflow
-                if ((14 - hes) > 24)
-                {
-                    // Mantissa shifted all the way off & no rounding possibility
-                    hm = UINT16_C(0);  // Set mantissa to zero
-                }
-                else
-                {
-                    xm |= 0x00800000u;  // Add the hidden leading bit
-                    hm = static_cast<uint16_t>(xm >> (14 - hes)); // Mantissa
-                    if ((xm >> (13 - hes)) & UINT32_C(0x00000001)) // Check for rounding
-                        hm += UINT16_C(1); // Round, might overflow into exp bit, but this is OK
-                }
-                result = hs | hm; // Combine sign bit and mantissa bits, biased exponent is zero
-            }
-            else
-            {
-                uint16_t he = uint16_t(hes << 10); // Exponent
-                hm = static_cast<uint16_t>(xm >> 13); // Mantissa
-                if (xm & UINT16_C(0x00001000)) // Check for rounding
-                    result = (hs | he | hm) + UINT16_C(1); // Round, might overflow to inf, this is OK
-                else
-                    result = hs | he | hm;  // No rounding
-            }
-        }
-    }
-
-    writeBits( result, 16 );
+void BitStreamWriter::writeFloat64(double data)
+{
+    const uint64_t doublePrecisionFloat = convertDoubleToUInt64(data);
+    writeUnsignedBits64(doublePrecisionFloat, 64);
 }
 
 void BitStreamWriter::writeString(const std::string& data)
@@ -335,6 +290,17 @@ const uint8_t* BitStreamWriter::getWriteBuffer(size_t& writeBufferByteSize) cons
     writeBufferByteSize = m_bufferBitSize / 8;
 
     return m_buffer;
+}
+
+void BitStreamWriter::writeBufferToFile(const std::string& filename) const
+{
+    std::ofstream os(filename.c_str(), std::ofstream::binary);
+    if (!os)
+        throw CppRuntimeException("WriteBitStreamToFile: Failed to open '" + filename +"' for writing!");
+
+    os.write(reinterpret_cast<const char*>(m_buffer), m_bufferBitSize / 8);
+    if (!os)
+        throw CppRuntimeException("WriteBitStreamToFile: Failed to write '" + filename +"'!");
 }
 
 inline void BitStreamWriter::writeUnsignedBits(uint32_t data, uint8_t numBits)
@@ -404,23 +370,28 @@ inline void BitStreamWriter::writeUnsignedBits64(uint64_t data, uint8_t numBits)
 inline void BitStreamWriter::writeVarNum(int64_t value, const uint8_t* valBits, size_t valBitsSize,
         size_t numVarBits)
 {
-    static const uint64_t bitMasks[8] = { 1, 3, 7, 15, 31, 63, 127, 255 };
-
     const uint64_t absValue = static_cast<uint64_t>(value < 0 ? -value : value);
+    writeVarAbsNum(absValue, value < 0, valBits, valBitsSize, numVarBits);
+}
+
+inline void BitStreamWriter::writeVarAbsNum(uint64_t value, bool sign, const uint8_t* valBits,
+        size_t valBitsSize, size_t numVarBits)
+{
+    static const uint64_t bitMasks[8] = { 1, 3, 7, 15, 31, 63, 127, 255 };
     const size_t numVarBytes = bitsToBytes(numVarBits);
     for (size_t i = numVarBytes; i > 0; i--)
     {
         const uint8_t numBits = valBits[numVarBytes - i];
         if (numBits < 7)
         {
-            writeBool(value < 0); // sign
+            writeBool(sign); // sign
         }
         if (numBits < 8)
         {
             writeBool(i > 1); // hasNextByte
         }
         const int shiftBits = (i - 1) * 7 + ((numVarBytes==valBitsSize && i > 1 ) ? 1 : 0);
-        writeBits(((absValue >> shiftBits) & bitMasks[numBits - 1]), numBits);
+        writeBits(((value >> shiftBits) & bitMasks[numBits - 1]), numBits);
     }
 }
 

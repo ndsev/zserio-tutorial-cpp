@@ -33,7 +33,13 @@ public:
     void writeVarUInt32(uint32_t data);
     void writeVarUInt16(uint16_t data);
 
+    void writeVarInt(int64_t data);
+    void writeVarUInt(uint64_t data);
+
     void writeFloat16(float data);
+    void writeFloat32(float data);
+    void writeFloat64(double data);
+
     void writeString(const std::string& data);
     void writeBool(bool data);
 
@@ -45,10 +51,17 @@ public:
     bool hasWriteBuffer() const { return m_hasInternalBuffer || m_buffer != NULL; }
     const uint8_t* getWriteBuffer(size_t& writeBufferByteSize) const;
 
+    void writeBufferToFile(const std::string& filename) const;
+
 private:
+    // forbid copy constructor and assignment operator
+    BitStreamWriter(const BitStreamWriter& other);
+    BitStreamWriter& operator=(const BitStreamWriter& other);
+
     void writeUnsignedBits(uint32_t data, uint8_t numBits);
     void writeUnsignedBits64(uint64_t data, uint8_t numBits);
     void writeVarNum(int64_t value, const uint8_t* valBits, size_t valBitsSize, size_t numVarBits);
+    void writeVarAbsNum(uint64_t value, bool sign, const uint8_t* valBits, size_t valBitsSize, size_t numVarBits);
 
     uint8_t*                m_buffer;
     size_t                  m_bitIndex;

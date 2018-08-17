@@ -1,8 +1,10 @@
 #include <limits>
+#include <fstream>
 
 #include "BitStreamException.h"
 #include "CppRuntimeException.h"
 #include "StringConvertUtil.h"
+#include "FloatUtil.h"
 #include "BitStreamReader.h"
 
 namespace zserio
@@ -287,11 +289,49 @@ namespace
 #endif
 } // namespace
 
-BitStreamReader::ReaderContext::ReaderContext(const uint8_t* data, size_t bufferByteSize)
-:   buffer(data),
+BitStreamReader::ReaderContext::ReaderContext(const uint8_t* buffer, size_t bufferByteSize)
+:   buffer(const_cast<uint8_t*>(buffer)),
     bufferBitSize(bufferByteSize * 8),
+    hasInternalBuffer(false),
     cacheNumBits(0),
     bitIndex(0)
+{
+    Init(bufferByteSize);
+}
+
+BitStreamReader::ReaderContext::ReaderContext(const std::string& filename)
+:   hasInternalBuffer(true),
+    cacheNumBits(0),
+    bitIndex(0)
+{
+    std::ifstream is(filename.c_str(), std::ifstream::binary);
+    if (!is)
+        throw CppRuntimeException("BitStreamReader: Cannot open '" + filename + "' for reading!");
+
+    is.seekg(0, is.end);
+    const size_t bufferByteSize = is.tellg();
+    is.seekg(0);
+
+    // throws an exception
+    Init(bufferByteSize);
+
+    buffer = new uint8_t[bufferByteSize];
+    bufferBitSize = bufferByteSize * 8;
+    is.read(reinterpret_cast<char*>(&buffer[0]), bufferByteSize);
+    if (!is)
+    {
+        delete[] buffer;
+        throw CppRuntimeException("BitStreamReader: Failed to read '" + filename + "'!");
+    }
+}
+
+BitStreamReader::ReaderContext::~ReaderContext()
+{
+    if (hasInternalBuffer)
+        delete[] buffer;
+}
+
+void BitStreamReader::ReaderContext::Init(size_t bufferByteSize)
 {
 #ifdef ZSERIO_RUNTIME_64BIT
     cache.buffer64 = 0;
@@ -304,8 +344,12 @@ BitStreamReader::ReaderContext::ReaderContext(const uint8_t* data, size_t buffer
                 convertToString(MAX_BUFFER_SIZE) + "' bytes!");
 }
 
-BitStreamReader::BitStreamReader(const uint8_t* data, size_t bufferByteSize)
-:   m_context(data, bufferByteSize)
+BitStreamReader::BitStreamReader(const uint8_t* buffer, size_t bufferByteSize)
+:   m_context(buffer, bufferByteSize)
+{}
+
+BitStreamReader::BitStreamReader(const std::string& filename)
+:   m_context(filename)
 {}
 
 BitStreamReader::~BitStreamReader()
@@ -512,70 +556,122 @@ uint16_t BitStreamReader::readVarUInt16()
     return result;
 }
 
+int64_t BitStreamReader::readVarInt()
+{
+    uint8_t byte = readBitsImpl(m_context, 8); // byte 1
+    const bool sign = byte & VARINT_SIGN_1;
+    int64_t result = byte & VARINT_BYTE_1;
+    if (!(byte & VARINT_HAS_NEXT_1))
+        return sign ? (result == 0 ? INT64_MIN : -result) : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 2
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 3
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 4
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 5
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 6
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 7
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    byte = readBitsImpl(m_context, 8); // byte 8
+    result = result << 7 | (byte & VARINT_BYTE_N);
+    if (!(byte & VARINT_HAS_NEXT_N))
+        return sign ? -result : result;
+
+    result = result << 8 | readBitsImpl(m_context, 8); // byte 9
+    return sign ? -result : result;
+}
+
+uint64_t BitStreamReader::readVarUInt()
+{
+    uint8_t byte = readBitsImpl(m_context, 8); // byte 1
+    uint64_t result = byte & VARUINT_BYTE;
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 2
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 3
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 4
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 5
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 6
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 7
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = readBitsImpl(m_context, 8); // byte 8
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    result = result << 8 | readBitsImpl(m_context, 8); // byte 9
+    return result;
+}
+
 float BitStreamReader::readFloat16()
 {
-    // Converts a 16bit unsigned integer to a 32 bit floating point number.
-    // The original code comes from:
-    // http://www.mathworks.com/matlabcentral/fileexchange/23173-ieee-754r-half-precision-floating-point-converter
+    const uint16_t halfPrecisionFloatValue = static_cast<uint16_t>(readBitsImpl(m_context, 16));
 
-    const uint16_t half = static_cast<uint16_t>(readBitsImpl(m_context, 16));
+    return convertUInt16ToFloat(halfPrecisionFloatValue);
+}
 
-    uint32_t result;
-    if ((half & UINT16_C(0x7FFF)) == 0)
-    {
-        // Signed zero
-        result = static_cast<uint32_t>(half) << 16;  // Return the signed zero
-    }
-    else
-    {
-        uint32_t xs, xe, xm;
-        int32_t xes;
+float BitStreamReader::readFloat32()
+{
+    const uint32_t singlePrecisionFloatValue = static_cast<uint32_t>(readBitsImpl(m_context, 32));
 
-        // Not zero
-        uint16_t hs = half & UINT16_C(0x8000);  // Pick off sign bit
-        uint16_t he = half & UINT16_C(0x7C00);  // Pick off exponent bits
-        uint16_t hm = half & UINT16_C(0x03FF);  // Pick off mantissa bits
-        if (he == 0)
-        {
-            // Denormal will convert to normalized
-            int e = -1; // The following loop figures out how much extra to adjust the exponent
-            do
-            {
-                e++;
-                hm <<= 1;
-            } while ((hm & UINT16_C(0x0400)) == 0); // Shift until leading bit overflows into exponent bit
-            xs = static_cast<uint32_t>(hs) << 16; // Sign bit
-            xes = static_cast<int32_t>(he >> 10) - 15 + 127 - e; // Exponent unbias the halfp, then bias the single
-            xe = static_cast<uint32_t>(xes << 23); // Exponent
-            xm = static_cast<uint32_t>(hm & UINT16_C(0x03FF)) << 13; // Mantissa
-            result = xs | xe | xm; // Combine sign bit, exponent bits, and mantissa bits
-        }
-        else if (he == UINT16_C(0x7C00))
-        {
-            // Inf or NaN (all the exponent bits are set)
-            if (hm == 0)
-            {
-                // If mantissa is zero ...
-                result = (static_cast<uint32_t>(hs) << 16) | UINT32_C(0x7F800000); // Signed Inf
-            }
-            else
-            {
-                result = UINT32_C(0xFFC00000); // NaN, only 1st mantissa bit set
-            }
-        }
-        else
-        {
-            // Normalized number
-            xs = static_cast<uint32_t>(hs) << 16; // Sign bit
-            xes = static_cast<int32_t>(he >> 10) - 15 + 127; // Exponent unbias the halfp, then bias the single
-            xe = static_cast<uint32_t>(xes << 23); // Exponent
-            xm = static_cast<uint32_t>(hm) << 13; // Mantissa
-            result = xs | xe | xm; // Combine sign bit, exponent bits, and mantissa bits
-        }
-    }
+    return convertUInt32ToFloat(singlePrecisionFloatValue);
+}
 
-    float const* floatData = reinterpret_cast<float*>(&result);
-    return *floatData;
+double BitStreamReader::readFloat64()
+{
+#ifdef ZSERIO_RUNTIME_64BIT
+    const uint64_t doublePrecisionFloatValue = static_cast<uint64_t>(readBitsImpl(m_context, 64));
+#else
+    const uint64_t doublePrecisionFloatValue = readBits64Impl(m_context, 64);
+#endif
+
+    return convertUInt64ToDouble(doublePrecisionFloatValue);
 }
 
 std::string BitStreamReader::readString()
