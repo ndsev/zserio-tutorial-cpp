@@ -1,7 +1,8 @@
 # Zserio C++ Quick Start Tutorial
 
-This Quick Start tutorial features code generation in C++. Go to the [Zserio JAVA tutorial](https://) if you
-are interested in hands-on JAVA with zserio.
+This Quick Start tutorial features code generation in C++. Go to the
+[Zserio JAVA tutorial](https://github.com/welovemaps/zserio-tutorial-java#zserio-java-quick-start-tutorial)
+if you are interested in hands-on JAVA with zserio.
 
 You find the complete tutorial in this example. To follow along the description just clone the repo and check
 the sources. For convenience and compatibility reasons we have included the runtime in this repository,
@@ -63,7 +64,7 @@ add_executable(ZserioTutorialCpp src/Main.cpp)
 target_link_libraries(ZserioTutorialCpp ZserioTutorialCpplLib)
 ```
 
-Now we only need to generate the code, populate the main.cpp and we are done.
+Now we only need to generate the code, populate the Main.cpp and we are done.
 
 But before we can generate code, we need to write the schema definition of our data.
 
@@ -338,7 +339,7 @@ There are some other features that we used in the code in this repo that we woul
 ### Zserio runtime exceptions
 
 The zserio runtime throws three exceptions. The `zserio::CppRuntimeException`, the `zserio::BitStreamException`
-and the `zserio::ContraintException`. The last two exceptions are specialization of
+and the `zserio::ConstraintException`. The last two exceptions are specialization of
 `zserio::CppRuntimeException` only, so basically it is enough to catch the runtime exception for most scenarios.
  
 It makes sense to try-catch all of your writes and reads as we do in our tutorial:
@@ -358,13 +359,13 @@ Examples for when an exception will be thrown:
 
 - **Data type range exceptions**
 
-  Zserio types get mapped to C++ native types of a bigger type sometimes (e.g. bit:2 to uint8_t). You may
+  Zserio types get mapped to C++ native types of a bigger type sometimes (e.g. `bit:2` to `uint8_t`). You may
   assign values that fit into the C++ native type which will compile fine, but the zserio runtime will throw
   an exception if it does not fit into the zserio schema.
 
-  > Example: Try to give Joe a programming experience of 100 years or make him 100 years old.
+  > Example: Try to give Joe a programming experience of 100 years.
 
-- **Contraint exceptions**
+- **Constraint exceptions**
 
   If there is a constrain in the schema that requires a certain field to be set to specific value, the
   zserio runtime will throw an exception if you try to set the field without the constraint being met.

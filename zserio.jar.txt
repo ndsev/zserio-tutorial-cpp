@@ -1,1 +1,0 @@
-Placeholder for the zserio.jar file which you can download from https://github.com/welovemaps/zserio/releases.
