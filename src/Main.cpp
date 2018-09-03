@@ -151,7 +151,7 @@ int main(int argc, char** argv)
             printHelp();
         }
     }
-    catch (zserio::CppRuntimeException &e)
+    catch (const zserio::CppRuntimeException& e)
     {
         std::cout << e.what() << std::endl;
     }
