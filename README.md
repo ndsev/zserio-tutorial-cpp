@@ -13,7 +13,7 @@ The latest build of the zserio compiler and runtime library can be get from
 [Zserio Releases](https://github.com/ndsev/zserio/releases).
 
 If you want to  build from source, please follow the
-[Build Instructions for Zserio Compiler](https://github.com/ndsev/doc/zserio-compiler.md).
+[Build Instructions for Zserio Compiler](https://github.com/ndsev/zserio/blob/master/doc/ZserioBuildInstructions.md).
 
 ## Installation & Prerequisites
 
