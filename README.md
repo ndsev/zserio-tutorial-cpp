@@ -162,7 +162,7 @@ Now we are ready to compile the schema with the zserio compiler. The zserio comp
 its [imported files](https://github.com/ndsev/zserio/blob/master/doc/ZserioLanguageOverview.md#packages-and-imports)
 and reports errors and warnings. In addition, the zserio compiler generates code for the supported languages
 and may generate HTML documentation. For a complete overview of available options, please refer to the
-[Zserio Compiler User Guide](https://github.com/ndsev/zserio/blob/master/doc/ZserioCompilerUserGuide.md).
+[Zserio Compiler User Guide](https://github.com/ndsev/zserio/blob/master/doc/ZserioUserGuide.md#zserio-compiler-user-guide).
 
 So let's generate some C++ code:
 
