@@ -9,7 +9,7 @@
 
 static void printHelp()
 {
-    std::cout << "Usage: ZserioTutorialCpp [write_joe] [write_boss] [read]" << std::endl;
+    std::cout << "Usage: ZserioTutorialCpp write_joe|write_boss|read" << std::endl;
 }
 
 static void writeJoe(const std::string& employeeFile)

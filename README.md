@@ -1,8 +1,9 @@
 # Zserio C++ Quick Start Tutorial
 
 This Quick Start tutorial features code generation in C++. Go to the
-[Zserio JAVA tutorial](https://github.com/ndsev/zserio-tutorial-java#zserio-java-quick-start-tutorial)
-if you are interested in hands-on JAVA with zserio.
+[Zserio Java tutorial](https://github.com/ndsev/zserio-tutorial-java#zserio-java-quick-start-tutorial) or
+[Zserio Python tutorial](https://github.com/ndsev/zserio-tutorial-python#zserio-python-quick-start-tutorial)
+if you are interested in hands-on Java or Python with zserio.
 
 You find the complete tutorial in this example. To follow along the description just clone this repo and check
 the sources. For convenience and compatibility reasons, we have included the zserio.jar compiler version 1.0 and
@@ -12,14 +13,14 @@ the runtime library is in subfolder `3rdparty`.
 The latest build of the zserio compiler and runtime library can be get from
 [Zserio Releases](https://github.com/ndsev/zserio/releases).
 
-If you want to  build from source, please follow the
+If you want to build from source, please follow the
 [Zserio Compiler Build Instructions](https://github.com/ndsev/zserio/blob/master/doc/ZserioBuildInstructions.md#zserio-compiler-build-instructions).
 
 ## Installation & Prerequisites
 
 Before we start, make sure you have the following components installed:
 
-- JAVA JRE
+- Java JRE
 - CMake
 
 ## Set up dev environment
@@ -256,7 +257,7 @@ skill2.setProgrammingLanguage(tutorial::Language::PYTHON);
 skills.push_back(skill2);
 ```
 
-Don't forget to set Joe's experience:
+Don't forget to set Joe's skills:
 
 ```cpp
 joe.setSkills(skills);
@@ -349,7 +350,7 @@ There are some other features that we used in the code in this repo that we woul
 The zserio runtime throws three exceptions. The `zserio::CppRuntimeException`, the `zserio::BitStreamException`
 and the `zserio::ConstraintException`. The last two exceptions are specialization of
 `zserio::CppRuntimeException` only, so basically it is enough to catch the runtime exception for most scenarios.
- 
+
 It makes sense to try-catch all of your writes and reads as we do in our tutorial:
 
 ```cpp
