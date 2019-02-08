@@ -197,21 +197,21 @@ void BitStreamWriter::writeVarInt16(int16_t data)
 void BitStreamWriter::writeVarUInt64(uint64_t data)
 {
     static const uint8_t valBitsVarUInt64[] = { 7, 7, 7, 7, 7, 7, 7, 8 };
-    writeVarNum(data, valBitsVarUInt64, sizeof(valBitsVarUInt64) / sizeof(valBitsVarUInt64[0]),
+    writeVarAbsNum(data, false, valBitsVarUInt64, sizeof(valBitsVarUInt64) / sizeof(valBitsVarUInt64[0]),
             getBitSizeOfVarUInt64(data));
 }
 
 void BitStreamWriter::writeVarUInt32(uint32_t data)
 {
     static const uint8_t valBitsVarUInt32[] = { 7, 7, 7, 8 };
-    writeVarNum(data, valBitsVarUInt32, sizeof(valBitsVarUInt32) / sizeof(valBitsVarUInt32[0]),
+    writeVarAbsNum(data, false, valBitsVarUInt32, sizeof(valBitsVarUInt32) / sizeof(valBitsVarUInt32[0]),
             getBitSizeOfVarUInt32(data));
 }
 
 void BitStreamWriter::writeVarUInt16(uint16_t data)
 {
     static const uint8_t valBitsVarUInt16[] = { 7, 8 };
-    writeVarNum(data, valBitsVarUInt16, sizeof(valBitsVarUInt16) / sizeof(valBitsVarUInt16[0]),
+    writeVarAbsNum(data, false, valBitsVarUInt16, sizeof(valBitsVarUInt16) / sizeof(valBitsVarUInt16[0]),
             getBitSizeOfVarUInt16(data));
 }
 
@@ -326,7 +326,7 @@ inline void BitStreamWriter::writeUnsignedBits(uint32_t data, uint8_t numBits)
 
     const uint8_t org_numBits = numBits;
     uint8_t bits_free = 8 - (m_bitIndex & 0x07);
-    uint32_t byte_index = m_bitIndex / 8;
+    size_t byte_index = m_bitIndex / 8;
 
     if (numBits > bits_free)
     {
@@ -390,7 +390,7 @@ inline void BitStreamWriter::writeVarAbsNum(uint64_t value, bool sign, const uin
         {
             writeBool(i > 1); // hasNextByte
         }
-        const int shiftBits = (i - 1) * 7 + ((numVarBytes==valBitsSize && i > 1 ) ? 1 : 0);
+        const size_t shiftBits = (i - 1) * 7 + ((numVarBytes == valBitsSize && i > 1) ? 1 : 0);
         writeBits(static_cast<uint8_t>((value >> shiftBits) & bitMasks[numBits - 1]), numBits);
     }
 }
