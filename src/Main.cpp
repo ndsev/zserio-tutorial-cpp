@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
-#include <zserio/ObjectArray.h>
 #include <zserio/BitStreamReader.h>
 #include <zserio/BitStreamWriter.h>
+#include <zserio/Enums.h>
 
 #include "tutorial/Employee.h"
 
@@ -25,8 +26,8 @@ static void writeJoe(const std::string& employeeFile)
     /* set an enum value, in this case the role */
     joe.setRole(tutorial::Role::DEVELOPER);
 
-    /* declare a zserio object array which holds a zserio struct */
-    zserio::ObjectArray<tutorial::Experience> skills;
+    /* declare an array which holds a zserio struct */
+    std::vector<tutorial::Experience> skills;
 
     /* declare and fill the struct Experience */
     tutorial::Experience skill1;
@@ -92,24 +93,23 @@ static void readEmployee(const std::string& employeeFile)
     std::cout << "Name: " << employee.getName() << std::endl;
     std::cout << "Age: " << static_cast<unsigned int>(employee.getAge()) << std::endl;
     std::cout << "Salary: " << employee.getSalary() << std::endl;
-    std::cout << "Role: " << employee.getRole().toString() << std::endl;
+    std::cout << "Role: " << zserio::enumToString(employee.getRole()) << std::endl;
 
     /* we have to check for optionals whether they are in the stream */
     if (employee.hasBonus())
-        std::cout << "Bonus: " << employee.getBonus() << std::endl;
+        std::cout << "Bonus: " << employee.getBonus().value() << std::endl;
 
     /* we also have to check for conditions if they applied */
     if (employee.hasSkills())
     {
-        const zserio::ObjectArray<tutorial::Experience> skills  = employee.getSkills();
-        for (zserio::ObjectArray<tutorial::Experience>::const_iterator it = skills.begin();
-                it != skills.end(); ++it)
+        const std::vector<tutorial::Experience>& skills  = employee.getSkills().value();
+        for (std::vector<tutorial::Experience>::const_iterator it = skills.begin(); it != skills.end(); ++it)
         {
             const uint8_t years = it->getYearsOfExperience();
             const tutorial::Language language = it->getProgrammingLanguage();
 
             /* get string representation of Language enum value */
-            const std::string languageString = language.toString();
+            const std::string languageString = zserio::enumToString(language);
 
             std::cout << "Skill: Language " << languageString << ", " << static_cast<unsigned int>(years) <<
                     " years" << std::endl;

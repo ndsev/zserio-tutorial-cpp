@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
 project (ZserioTutorialCpp)
 
+set(CMAKE_CXX_STANDARD 11)
+
 add_subdirectory(3rdparty/runtime)
 
 file(GLOB_RECURSE SOURCES_TUTORIAL_API "${CMAKE_CURRENT_SOURCE_DIR}/src/tutorial/*.cpp")

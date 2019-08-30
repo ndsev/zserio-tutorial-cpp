@@ -48,7 +48,6 @@ So our folder structure looks like this:
 ├───3rdparty
 │   └───runtime
 │       └───zserio
-│           └───inspector
 └───src
 ```
 
@@ -60,6 +59,8 @@ folder:
 ```cmake
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
 project (ZserioTutorialCpp)
+
+set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(3rdparty/runtime)
 
@@ -181,7 +182,6 @@ So after generating the code our folder structure looks like this:
 ├───3rdparty
 │   └───runtime
 │       └───zserio
-│           └───inspector
 └───src
     └───tutorial
 ```
@@ -227,14 +227,11 @@ joe.setSalary(5000);
 joe.setRole(tutorial::Role::DEVELOPER);
 ```
 
-To be able to populate a list of skills, we need to declare a zserio object array template of type Experience:
+To be able to populate a list of skills, we need to declare an array template of type Experience:
 
 ```cpp
-zserio::ObjectArray<tutorial::Experience> skills;
+std::vector<tutorial::Experience> skills;
 ```
-
-You can find a full list of available zserio templates in the
-[Zserio C++ API overview](https://github.com/ndsev/zserio/blob/master/doc/ZserioCppAPI.md).
 
 So now let's generate two entries for the skills list:
 
@@ -248,7 +245,6 @@ skills.push_back(skill1);
 ```
 
 and then also some Python experience:
-
 
 ```cpp
 tutorial::Experience skill2;
@@ -329,11 +325,11 @@ and conditionals whether they have been set.
 std::cout << "Name: " << employee.getName() << std::endl;
 std::cout << "Age: " << static_cast<unsigned int>(employee.getAge()) << std::endl;
 std::cout << "Salary: " << employee.getSalary() << std::endl;
-std::cout << "Role: " << employee.getRole().toString() << std::endl;
+std::cout << "Role: " << zserio::enumToString(employee.getRole()) << std::endl;
 
 /* we have to check for optionals whether they are in the stream */
 if (employee.hasBonus())
-    std::cout << "Bonus: " << employee.getBonus() << std::endl;
+    std::cout << "Bonus: " << employee.getBonus().value() << std::endl;
 ```
 
 For the rest of the processing please refer to the code. You should have gotten the main point by now.
