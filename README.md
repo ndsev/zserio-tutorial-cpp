@@ -6,7 +6,7 @@ This Quick Start tutorial features code generation in C++. Go to the
 if you are interested in hands-on Java or Python with zserio.
 
 You find the complete tutorial in this example. To follow along the description just clone this repo and check
-the sources. For convenience and compatibility reasons, we have included the zserio.jar compiler version 1.0 and
+the sources. For convenience and compatibility reasons, we have included the zserio.jar compiler and
 the corresponded runtime in this repository. The zserio compiler is located in the project's root folder and
 the runtime library is in subfolder `3rdparty`.
 
@@ -329,7 +329,7 @@ std::cout << "Role: " << zserio::enumToString(employee.getRole()) << std::endl;
 
 /* we have to check for optionals whether they are in the stream */
 if (employee.hasBonus())
-    std::cout << "Bonus: " << employee.getBonus().value() << std::endl;
+    std::cout << "Bonus: " << employee.getBonus() << std::endl;
 ```
 
 For the rest of the processing please refer to the code. You should have gotten the main point by now.

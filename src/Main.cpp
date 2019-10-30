@@ -97,12 +97,12 @@ static void readEmployee(const std::string& employeeFile)
 
     /* we have to check for optionals whether they are in the stream */
     if (employee.hasBonus())
-        std::cout << "Bonus: " << employee.getBonus().value() << std::endl;
+        std::cout << "Bonus: " << employee.getBonus() << std::endl;
 
     /* we also have to check for conditions if they applied */
     if (employee.hasSkills())
     {
-        const std::vector<tutorial::Experience>& skills  = employee.getSkills().value();
+        const std::vector<tutorial::Experience>& skills  = employee.getSkills();
         for (std::vector<tutorial::Experience>::const_iterator it = skills.begin(); it != skills.end(); ++it)
         {
             const uint8_t years = it->getYearsOfExperience();
