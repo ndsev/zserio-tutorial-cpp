@@ -60,16 +60,19 @@ folder:
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
 project (ZserioTutorialCpp)
 
+set(TUTORIAL_ZSERIO_RUNTIME_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/runtime")
+set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
 set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(3rdparty/runtime)
+add_subdirectory(${TUTORIAL_ZSERIO_RUNTIME_DIR} runtime)
 
-file(GLOB_RECURSE SOURCES_TUTORIAL_API "${CMAKE_CURRENT_SOURCE_DIR}/src/tutorial/*.cpp")
-file(GLOB_RECURSE HEADERS_TUTORIAL_API "${CMAKE_CURRENT_SOURCE_DIR}/src/tutorial/*.h")
+file(GLOB_RECURSE SOURCES_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.cpp")
+file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h")
 
 add_library(ZserioTutorialCpplLib STATIC ${SOURCES_TUTORIAL_API} ${HEADERS_TUTORIAL_API})
 
-target_include_directories(ZserioTutorialCpplLib PUBLIC src)
+target_include_directories(ZserioTutorialCpplLib PUBLIC "${TUTORIAL_ZSERIO_GEN_DIR}")
 target_link_libraries(ZserioTutorialCpplLib ZserioCppRuntime)
 
 add_executable(ZserioTutorialCpp src/Main.cpp)
@@ -166,10 +169,22 @@ and reports errors and warnings. In addition, the zserio compiler generates code
 and may generate HTML documentation. For a complete overview of available options, please refer to the
 [Zserio Compiler User Guide](https://github.com/ndsev/zserio/blob/master/doc/ZserioUserGuide.md#zserio-compiler-user-guide).
 
-So let's generate some C++ code:
+So let's generate some C++ code. Because zserio compiler is not available in the repository, we have 
+prepared CMakeLists.txt which will download the latest zserio compiler release together with corresponded C++
+runtime library from GitHub and generate C++ code. So, it's enough just to run the following command:
 
 ```
-java -jar zserio.jar -cpp src tutorial.zs
+mkdir build
+cd build
+cmake .. -DREGENERATE_ZSERIO_SOURCES=ON
+cd ..
+```
+
+After download, you can find out the latest zserio compiler in directory `build/download` and regenerate
+the C++ code by hand using the command:
+
+```
+java -jar build/download/zserio.jar -cpp src tutorial.zs
 ```
 
 This command generates C++ code and puts it into the `src` folder. It actually creates subfolders for each
