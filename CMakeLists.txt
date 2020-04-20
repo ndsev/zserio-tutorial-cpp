@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
 project (ZserioTutorialCpp)
 
-option(REGENERATE_ZSERIO_SOURCES "Regenerate Zserio sources from the latest GitHub release" OFF)
+option(REGENERATE_CPP_SOURCES "Regenerate C++ sources using the latest zserio from GitHub release" OFF)
 
 set(TUTORIAL_ZSERIO_RUNTIME_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/runtime")
 set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-if (REGENERATE_ZSERIO_SOURCES)
+if (REGENERATE_CPP_SOURCES)
     find_package(Java REQUIRED)
     
     function(download_file URL_PATH LOCAL_FILE_FULL_NAME MESSAGE_DETAIL)

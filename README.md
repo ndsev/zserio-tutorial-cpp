@@ -51,10 +51,10 @@ So our folder structure looks like this:
 └───src
 ```
 
-The CMakeLists.txt of zserio C++ runtime library stays in `3rdparty/runtime`.
+The `CMakeLists.txt` of zserio C++ runtime library stays in `3rdparty/runtime`.
 
-In addition to the zserio schema file and the zserio compiler we add the following CMakeLists.txt to the project
-folder:
+In addition to the zserio schema file and the zserio compiler we add the following `CMakeLists.txt`
+to the project folder:
 
 ```cmake
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
@@ -169,14 +169,14 @@ and reports errors and warnings. In addition, the zserio compiler generates code
 and may generate HTML documentation. For a complete overview of available options, please refer to the
 [Zserio Compiler User Guide](https://github.com/ndsev/zserio/blob/master/doc/ZserioUserGuide.md#zserio-compiler-user-guide).
 
-So let's generate some C++ code. Because zserio compiler is not available in the repository, we have 
-prepared CMakeLists.txt which will download the latest zserio compiler release together with corresponded C++
+So let's generate some C++ code. Because zserio compiler is not available in this repository, we have 
+prepared `CMakeLists.txt` which will download the latest zserio compiler release together with corresponded C++
 runtime library from GitHub and generate C++ code. So, it's enough just to run the following command:
 
 ```
 mkdir build
 cd build
-cmake .. -DREGENERATE_ZSERIO_SOURCES=ON
+cmake .. -DREGENERATE_CPP_SOURCES=ON
 cd ..
 ```
 
