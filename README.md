@@ -62,8 +62,6 @@ project (ZserioTutorialCpp)
 set(TUTORIAL_ZSERIO_RUNTIME_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/runtime")
 set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-set(CMAKE_CXX_STANDARD 11)
-
 add_subdirectory(${TUTORIAL_ZSERIO_RUNTIME_DIR} runtime)
 
 file(GLOB_RECURSE SOURCES_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.cpp")
@@ -71,11 +69,15 @@ file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h"
 
 add_library(ZserioTutorialCpplLib STATIC ${SOURCES_TUTORIAL_API} ${HEADERS_TUTORIAL_API})
 
+set_target_properties(ZserioTutorialCpplLib PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 target_include_directories(ZserioTutorialCpplLib PUBLIC "${TUTORIAL_ZSERIO_GEN_DIR}")
 target_link_libraries(ZserioTutorialCpplLib ZserioCppRuntime)
 
 add_executable(ZserioTutorialCpp src/Main.cpp)
 
+set_target_properties(ZserioTutorialCpp PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 target_link_libraries(ZserioTutorialCpp ZserioTutorialCpplLib)
 ```
 

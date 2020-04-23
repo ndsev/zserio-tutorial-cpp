@@ -25,8 +25,8 @@ if (REGENERATE_CPP_SOURCES)
         set(LOCAL_FILE_FULL_NAME "${LOCAL_FILE_DIR}/${LOCAL_FILE_NAME}")
         MESSAGE(STATUS "Unzipping ${MESSAGE_DETAIL}")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar -xf "${LOCAL_FILE_FULL_NAME}"
-            WORKING_DIRECTORY "${LOCAL_FILE_DIR}"
-            RESULT_VARIABLE TAR_RESULT_CODE)
+                WORKING_DIRECTORY "${LOCAL_FILE_DIR}"
+                RESULT_VARIABLE TAR_RESULT_CODE)
         if (TAR_RESULT_CODE)
             message(FATAL_ERROR "Unzipping failed!")
         endif ()
@@ -35,11 +35,10 @@ if (REGENERATE_CPP_SOURCES)
     function(get_latest_zserio_version DOWNLOAD_DIR OUTPUT_VERSION_VAR_NAME)
         set(LATEST_RELEASE_JSON_FULL_NAME "${DOWNLOAD_DIR}/latest_release.json")
         download_file("https://api.github.com/repos/ndsev/zserio/releases/latest"
-            "${LATEST_RELEASE_JSON_FULL_NAME}"
-            "zserio latest release json")
+                "${LATEST_RELEASE_JSON_FULL_NAME}"
+                "zserio latest release json")
         file(READ "${LATEST_RELEASE_JSON_FULL_NAME}" LATEST_RELEASE_JSON)
-        string(REGEX MATCH "\"tag_name\": \"v([0-9\.]+)\""
-            REGEX_RESULT ${LATEST_RELEASE_JSON})
+        string(REGEX MATCH "\"tag_name\": \"v([0-9\.]+)\"" REGEX_RESULT ${LATEST_RELEASE_JSON})
         set(${OUTPUT_VERSION_VAR_NAME} "${CMAKE_MATCH_1}" PARENT_SCOPE)
     endfunction()
     
@@ -53,17 +52,17 @@ if (REGENERATE_CPP_SOURCES)
     set(ZSERIO_RUNTIME_LIBS_ZIP_NAME "zserio-${LATEST_ZSERIO_VERSION}-runtime-libs.zip")
     
     download_file("${GITHUB_HTTPS_DOWNLOAD}/v${LATEST_ZSERIO_VERSION}/${ZSERIO_BIN_ZIP_NAME}"
-        "${TUTORIAL_DOWNLOAD_DIR}/${ZSERIO_BIN_ZIP_NAME}"
-        "zserio v${LATEST_ZSERIO_VERSION} binaries")
+            "${TUTORIAL_DOWNLOAD_DIR}/${ZSERIO_BIN_ZIP_NAME}"
+            "zserio v${LATEST_ZSERIO_VERSION} binaries")
     unzip_file("${TUTORIAL_DOWNLOAD_DIR}"
-        "${ZSERIO_BIN_ZIP_NAME}"
-        "zserio v${LATEST_ZSERIO_VERSION} binaries")
+            "${ZSERIO_BIN_ZIP_NAME}"
+            "zserio v${LATEST_ZSERIO_VERSION} binaries")
     download_file("${GITHUB_HTTPS_DOWNLOAD}/v${LATEST_ZSERIO_VERSION}/${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
-        "${TUTORIAL_DOWNLOAD_DIR}/${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
-        "zserio v${LATEST_ZSERIO_VERSION} runtime libraries")
+            "${TUTORIAL_DOWNLOAD_DIR}/${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
+            "zserio v${LATEST_ZSERIO_VERSION} runtime libraries")
     unzip_file("${TUTORIAL_DOWNLOAD_DIR}"
-        "${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
-        "zserio v${LATEST_ZSERIO_VERSION} runtime libraries")
+            "${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
+            "zserio v${LATEST_ZSERIO_VERSION} runtime libraries")
     file(COPY "${TUTORIAL_DOWNLOAD_DIR}/runtime_libs/cpp/" DESTINATION "${TUTORIAL_ZSERIO_RUNTIME_DIR}")
     
     MESSAGE(STATUS "Compiling zserio tutorial schema")
@@ -76,8 +75,6 @@ if (REGENERATE_CPP_SOURCES)
     endif ()
 endif ()
 
-set(CMAKE_CXX_STANDARD 11)
-
 add_subdirectory(${TUTORIAL_ZSERIO_RUNTIME_DIR} runtime)
 
 file(GLOB_RECURSE SOURCES_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.cpp")
@@ -85,9 +82,12 @@ file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h"
 
 add_library(ZserioTutorialCpplLib STATIC ${SOURCES_TUTORIAL_API} ${HEADERS_TUTORIAL_API})
 
+set_target_properties(ZserioTutorialCpplLib PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 target_include_directories(ZserioTutorialCpplLib PUBLIC "${TUTORIAL_ZSERIO_GEN_DIR}")
 target_link_libraries(ZserioTutorialCpplLib ZserioCppRuntime)
 
 add_executable(ZserioTutorialCpp src/Main.cpp)
 
+set_target_properties(ZserioTutorialCpp PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 target_link_libraries(ZserioTutorialCpp ZserioTutorialCpplLib)
