@@ -82,8 +82,7 @@ file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h"
 
 add_library(ZserioTutorialCpplLib STATIC ${SOURCES_TUTORIAL_API} ${HEADERS_TUTORIAL_API})
 
-set_target_properties(ZserioTutorialCpplLib PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO)
+set_target_properties(ZserioTutorialCpplLib PROPERTIES CXX_STANDARD 11)
 target_include_directories(ZserioTutorialCpplLib PUBLIC "${TUTORIAL_ZSERIO_GEN_DIR}")
 target_link_libraries(ZserioTutorialCpplLib ZserioCppRuntime)
 
