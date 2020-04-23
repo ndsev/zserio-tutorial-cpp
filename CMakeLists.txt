@@ -9,6 +9,9 @@ set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 if (REGENERATE_CPP_SOURCES)
     find_package(Java REQUIRED)
     
+    # this won't be needed if zserio release 2.0.0 will be out
+    set(CMAKE_CXX_STANDARD 11)
+    
     function(download_file URL_PATH LOCAL_FILE_FULL_NAME MESSAGE_DETAIL)
         if (NOT EXISTS "${LOCAL_FILE_FULL_NAME}")
             MESSAGE(STATUS "Downloading ${MESSAGE_DETAIL}")
