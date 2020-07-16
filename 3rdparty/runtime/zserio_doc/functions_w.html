@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_r.html#index_r"><span>r</span></a></li>
       <li><a href="functions_s.html#index_s"><span>s</span></a></li>
       <li><a href="functions_t.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_u.html#index_u"><span>u</span></a></li>
       <li class="current"><a href="functions_w.html#index_w"><span>w</span></a></li>
       <li><a href="functions_~.html#index_~"><span>~</span></a></li>
     </ul>
@@ -118,8 +119,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
 <li>write()
-: <a class="el" href="structzserio_1_1BitBufferArrayTraits.html#aa4849348093a6b83e45a4d4a21b6c945">zserio::BitBufferArrayTraits</a>
+: <a class="el" href="structzserio_1_1BitBufferArrayTraits.html#ae32e84d4c45cde84d1d0b1bb89118623">zserio::BitBufferArrayTraits</a>
 , <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a6549253834b2f767241e3af17a535530">zserio::BitFieldArrayTraits&lt; T &gt;</a>
+, <a class="el" href="structzserio_1_1BitmaskArrayTraits.html#a56fb4615541052e96d5ed20501db894d">zserio::BitmaskArrayTraits&lt; T &gt;</a>
 , <a class="el" href="structzserio_1_1BoolArrayTraits.html#af137e2155e34e65df7003a061ed87e89">zserio::BoolArrayTraits</a>
 , <a class="el" href="structzserio_1_1EnumArrayTraits.html#aa5d07fbb0376ff2adcebb540c5231616">zserio::EnumArrayTraits&lt; T &gt;</a>
 , <a class="el" href="structzserio_1_1Float16ArrayTraits.html#ae9bc26d771a91d62476c906cd5012417">zserio::Float16ArrayTraits</a>
@@ -127,7 +129,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="structzserio_1_1Float64ArrayTraits.html#a99100cc1e46b3239ed423cb8bc907e3f">zserio::Float64ArrayTraits</a>
 , <a class="el" href="classzserio_1_1ObjectArrayTraits_3_01T_01_4.html#a1d63f6040c9d8d2d2708815ce80de1ed">zserio::ObjectArrayTraits&lt; T &gt;</a>
 , <a class="el" href="structzserio_1_1StdIntArrayTraits.html#ae5f215172f0da343d4ac51e42ce9fd39">zserio::StdIntArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1StringArrayTraits.html#aa76103e8e86902a51d4d4a014229cb61">zserio::StringArrayTraits</a>
+, <a class="el" href="structzserio_1_1StringArrayTraits.html#a66539886d09cd9cc95c4dc4f7f243475">zserio::StringArrayTraits</a>
 , <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01int64__t_01_4.html#af54094985ccce7355a3ad6a275ba9362">zserio::VarIntArrayTraits&lt; int64_t &gt;</a>
 , <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01uint64__t_01_4.html#af44e069172f60bc7c151fd409365dc85">zserio::VarIntArrayTraits&lt; uint64_t &gt;</a>
 , <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int16__t_01_4.html#a3a6d598587aa82a91a607f3eec279cc2">zserio::VarIntNNArrayTraits&lt; int16_t &gt;</a>
@@ -136,6 +138,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint16__t_01_4.html#a19ef434426a79974f20c033b8d92305c">zserio::VarIntNNArrayTraits&lt; uint16_t &gt;</a>
 , <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint32__t_01_4.html#a0346091b184ed405de27be1ca0ff41cb">zserio::VarIntNNArrayTraits&lt; uint32_t &gt;</a>
 , <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint64__t_01_4.html#a15ffd0890b9bcc50a7f4f4ba4fa57ca8">zserio::VarIntNNArrayTraits&lt; uint64_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarSizeArrayTraits.html#a80f1cba8a2bc9b2f23b315ed372b3af1">zserio::VarSizeArrayTraits</a>
 </li>
 <li>writeBitBuffer()
 : <a class="el" href="classzserio_1_1BitStreamWriter.html#afcf216cd5e2eeeef095389ea2815bff9">zserio::BitStreamWriter</a>
@@ -182,6 +185,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>writeVarInt64()
 : <a class="el" href="classzserio_1_1BitStreamWriter.html#a0748628a301bcd85aec1e8bd0e3aa932">zserio::BitStreamWriter</a>
 </li>
+<li>writeVarSize()
+: <a class="el" href="classzserio_1_1BitStreamWriter.html#a6d0bdaaffacb846495b5cb7ef659d606">zserio::BitStreamWriter</a>
+</li>
 <li>writeVarUInt()
 : <a class="el" href="classzserio_1_1BitStreamWriter.html#a6e9589d431952a61ffb880dfa366ba12">zserio::BitStreamWriter</a>
 </li>
@@ -198,7 +204,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 25 2020 15:48:43 for Zserio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 15 2020 07:19:26 for Zserio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -2,12 +2,10 @@
 #include <cstring>
 #include <fstream>
 
-#include "zserio/BitStreamException.h"
 #include "zserio/CppRuntimeException.h"
 #include "zserio/StringConvertUtil.h"
 #include "zserio/FloatUtil.h"
 #include "zserio/BitStreamReader.h"
-#include "zserio/VarUInt64Util.h"
 
 namespace zserio
 {
@@ -88,6 +86,8 @@ namespace
     static const uint8_t VARUINT_BYTE = UINT8_C(0x7f);
     static const uint8_t VARUINT_HAS_NEXT = UINT8_C(0x80);
 
+    static const uint32_t VARSIZE_MAX_VALUE = (UINT32_C(1) << 31) - 1;
+
 #ifdef ZSERIO_RUNTIME_64BIT
     inline BaseType parse64(const uint8_t* buffer)
     {
@@ -158,10 +158,10 @@ namespace
     }
 
     /** Checks that reading of numBits don't reach end of stream. */
-    inline void checkEof(ReaderContext& ctx, uint8_t numBits)
+    inline void checkEof(const ReaderContext& ctx, uint8_t numBits)
     {
         if (ctx.bitIndex + numBits > ctx.bufferBitSize)
-            throw BitStreamException("BitStreamReader: Reached eof(), reading from stream failed.");
+            throw CppRuntimeException("BitStreamReader: Reached eof(), reading from stream failed.");
     }
 
     /** Checks numBits validity for 32-bit reads. */
@@ -203,10 +203,16 @@ namespace
             checkEof(ctx, numBits);
 
             ctx.cacheNumBits = static_cast<uint8_t>(ctx.bufferBitSize - ctx.bitIndex);
-            // always aligned to full bytes and less than cacheBitSize
-            switch (ctx.cacheNumBits)
+
+            // buffer must be always available in full bytes, even if some last bits are not used
+            const uint8_t alignedNumBits = (ctx.cacheNumBits + 7) & ~0x7;
+
+            switch (alignedNumBits)
             {
 #ifdef ZSERIO_RUNTIME_64BIT
+            case 64:
+                cacheBuffer = parse64(ctx.buffer + byteIndex);
+                break;
             case 56:
                 cacheBuffer = parse56(ctx.buffer + byteIndex);
                 break;
@@ -216,10 +222,10 @@ namespace
             case 40:
                 cacheBuffer = parse40(ctx.buffer + byteIndex);
                 break;
+#endif
             case 32:
                 cacheBuffer = parse32(ctx.buffer + byteIndex);
                 break;
-#endif
             case 24:
                 cacheBuffer = parse24(ctx.buffer + byteIndex);
                 break;
@@ -230,6 +236,8 @@ namespace
                 cacheBuffer = parse8(ctx.buffer + byteIndex);
                 break;
             }
+
+            cacheBuffer >>= alignedNumBits - ctx.cacheNumBits;
         }
     }
 
@@ -237,7 +245,7 @@ namespace
     inline BaseType readBitsImpl(ReaderContext& ctx, uint8_t numBits)
     {
         BaseType value = 0;
-        BaseType& cacheBuffer = getCacheBuffer(ctx.cache);
+        const BaseType& cacheBuffer = getCacheBuffer(ctx.cache);
 
         if (ctx.cacheNumBits < numBits)
         {
@@ -250,7 +258,9 @@ namespace
             loadCacheNext(ctx, numBits);
 
             // add the remaining bits to the result
-            value <<= numBits;
+            // if numBits is sizeof(BaseType) * 8 here, value is already 0 (see MASK_TABLE[0])
+            if (numBits < sizeof(BaseType) * 8)
+                value <<= numBits;
         }
         value |= ((cacheBuffer >> (ctx.cacheNumBits - numBits)) & MASK_TABLE[numBits]);
         ctx.cacheNumBits -= numBits;
@@ -265,7 +275,7 @@ namespace
         static const uint8_t typeSize = sizeof(BaseSignedType) * 8;
         BaseType value = readBitsImpl(ctx, numBits);
 
-        // Skip the signed overflow correction if numBits == 32.
+        // Skip the signed overflow correction if numBits == typeSize.
         // In that case, the value that comes out the readBits function
         // is already correct.
         if (numBits != 0 && numBits < typeSize && (value >= (static_cast<BaseType>(1) << (numBits - 1))))
@@ -659,6 +669,36 @@ uint64_t BitStreamReader::readVarUInt()
     return result;
 }
 
+uint32_t BitStreamReader::readVarSize()
+{
+    uint8_t byte = static_cast<uint8_t>(readBitsImpl(m_context, 8)); // byte 1
+    uint32_t result = byte & VARUINT_BYTE;
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = static_cast<uint8_t>(readBitsImpl(m_context, 8)); // byte 2
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = static_cast<uint8_t>(readBitsImpl(m_context, 8)); // byte 3
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    byte = static_cast<uint8_t>(readBitsImpl(m_context, 8)); // byte 4
+    result = result << 7 | (byte & VARUINT_BYTE);
+    if (!(byte & VARUINT_HAS_NEXT))
+        return result;
+
+    result = result << 8 | static_cast<uint8_t>(readBitsImpl(m_context, 8)); // byte 5
+    if (result > VARSIZE_MAX_VALUE)
+        throw CppRuntimeException("BitStreamReader: Read value '" + convertToString(result) +
+                "' is out of range for varsize type!");
+
+    return result;
+}
+
 float BitStreamReader::readFloat16()
 {
     const uint16_t halfPrecisionFloatValue = static_cast<uint16_t>(readBitsImpl(m_context, 16));
@@ -687,7 +727,7 @@ double BitStreamReader::readFloat64()
 std::string BitStreamReader::readString()
 {
     std::string value;
-    const size_t len = convertVarUInt64ToArraySize(readVarUInt64());
+    const size_t len = static_cast<size_t>(readVarSize());
     value.reserve(len);
     for (size_t i = 0; i < len; ++i)
     {
@@ -703,7 +743,7 @@ bool BitStreamReader::readBool()
 
 BitBuffer BitStreamReader::readBitBuffer()
 {
-    const size_t bitSize = convertVarUInt64ToArraySize(readVarUInt64());
+    const size_t bitSize = static_cast<size_t>(readVarSize());
     size_t numBytesToRead = bitSize / 8;
     const uint8_t numRestBits = static_cast<uint8_t>(bitSize - numBytesToRead * 8);
     BitBuffer bitBuffer(bitSize);
@@ -728,7 +768,7 @@ BitBuffer BitStreamReader::readBitBuffer()
     }
 
     if (numRestBits > 0)
-        *buffer = static_cast<uint8_t>(readBits(numRestBits));
+        *buffer = static_cast<uint8_t>(readBits(numRestBits) << (8 - numRestBits));
 
     return bitBuffer;
 }
@@ -736,7 +776,7 @@ BitBuffer BitStreamReader::readBitBuffer()
 void BitStreamReader::setBitPosition(BitPosType position)
 {
     if (position > m_context.bufferBitSize)
-        throw BitStreamException("BitStreamReader: Reached eof(), setting of bit position failed.");
+        throw CppRuntimeException("BitStreamReader: Reached eof(), setting of bit position failed.");
 
     m_context.bitIndex = (position / 8) * 8; // set to byte aligned position
     m_context.cacheNumBits = 0; // invalidate cache

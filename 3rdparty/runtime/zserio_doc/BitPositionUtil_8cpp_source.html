@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Zserio: /var/lib/jenkins/workspace/NDS_ZSERIO-build-linux64-Java8/compiler/extensions/cpp/runtime/src/zserio/BitPositionUtil.cpp Source File</title>
+<title>Zserio: /var/lib/jenkins/workspace/NDS_ZSERIO-build-linux64/compiler/extensions/cpp/runtime/src/zserio/BitPositionUtil.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -105,31 +105,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacezserio.html#a515ac6db071094ea56e343ae1c19fc06">   15</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="namespacezserio.html#a515ac6db071094ea56e343ae1c19fc06">bitsToBytes</a>(<span class="keywordtype">size_t</span> numBits)</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> numBytes = numBits / NUM_BITS_PER_BYTE;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (numBytes * NUM_BITS_PER_BYTE != numBits)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> numBytes = numBits / 8;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (numBytes * 8 != numBits)</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classzserio_1_1CppRuntimeException.html">CppRuntimeException</a>(<span class="stringliteral">&quot;bitsToBytes: &quot;</span> + <a class="code" href="namespacezserio.html#a9de9e6d3bbf2f4702298b737e35552ed">convertToString</a>(numBits) + <span class="stringliteral">&quot; is not a multiple of &quot;</span> +</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                <a class="code" href="namespacezserio.html#a9de9e6d3bbf2f4702298b737e35552ed">convertToString</a>(NUM_BITS_PER_BYTE));</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> numBytes;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">   27</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">bytesToBits</a>(<span class="keywordtype">size_t</span> numBytes)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> numBytes * NUM_BITS_PER_BYTE;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace zserio</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classzserio_1_1CppRuntimeException.html">CppRuntimeException</a>(<span class="stringliteral">&quot;bitsToBytes: &quot;</span> + <a class="code" href="namespacezserio.html#a9de9e6d3bbf2f4702298b737e35552ed">convertToString</a>(numBits) + <span class="stringliteral">&quot; is not a multiple of 8&quot;</span>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> numBytes;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">   26</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">bytesToBits</a>(<span class="keywordtype">size_t</span> numBytes)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> numBytes * 8;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace zserio</span></div>
 <div class="ttc" id="namespacezserio_html_a7117f877f22c9a375c667a8b6e5eec1a"><div class="ttname"><a href="namespacezserio.html#a7117f877f22c9a375c667a8b6e5eec1a">zserio::alignTo</a></div><div class="ttdeci">size_t alignTo(size_t alignmentValue, size_t bitPosition)</div><div class="ttdef"><b>Definition:</b> <a href="BitPositionUtil_8cpp_source.html#l00008">BitPositionUtil.cpp:8</a></div></div>
 <div class="ttc" id="namespacezserio_html_a515ac6db071094ea56e343ae1c19fc06"><div class="ttname"><a href="namespacezserio.html#a515ac6db071094ea56e343ae1c19fc06">zserio::bitsToBytes</a></div><div class="ttdeci">size_t bitsToBytes(size_t numBits)</div><div class="ttdef"><b>Definition:</b> <a href="BitPositionUtil_8cpp_source.html#l00015">BitPositionUtil.cpp:15</a></div></div>
 <div class="ttc" id="classzserio_1_1CppRuntimeException_html"><div class="ttname"><a href="classzserio_1_1CppRuntimeException.html">zserio::CppRuntimeException</a></div><div class="ttdef"><b>Definition:</b> <a href="CppRuntimeException_8h_source.html#l00013">CppRuntimeException.h:13</a></div></div>
-<div class="ttc" id="namespacezserio_html_a0f105339b0c8e9b5f4b6892578c765b7"><div class="ttname"><a href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">zserio::bytesToBits</a></div><div class="ttdeci">size_t bytesToBits(size_t numBytes)</div><div class="ttdef"><b>Definition:</b> <a href="BitPositionUtil_8cpp_source.html#l00027">BitPositionUtil.cpp:27</a></div></div>
+<div class="ttc" id="namespacezserio_html_a0f105339b0c8e9b5f4b6892578c765b7"><div class="ttname"><a href="namespacezserio.html#a0f105339b0c8e9b5f4b6892578c765b7">zserio::bytesToBits</a></div><div class="ttdeci">size_t bytesToBits(size_t numBytes)</div><div class="ttdef"><b>Definition:</b> <a href="BitPositionUtil_8cpp_source.html#l00026">BitPositionUtil.cpp:26</a></div></div>
 <div class="ttc" id="namespacezserio_html_a9de9e6d3bbf2f4702298b737e35552ed"><div class="ttname"><a href="namespacezserio.html#a9de9e6d3bbf2f4702298b737e35552ed">zserio::convertToString</a></div><div class="ttdeci">std::string convertToString(T value)</div><div class="ttdef"><b>Definition:</b> <a href="StringConvertUtil_8h_source.html#l00020">StringConvertUtil.h:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 25 2020 15:48:43 for Zserio by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 15 2020 07:19:26 for Zserio by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

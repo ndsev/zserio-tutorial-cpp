@@ -125,7 +125,7 @@ int main(int argc, char** argv)
     if (argc != 2)
     {
         printHelp();
-        return 0;
+        return 2;
     }
 
     const std::string employeeFile("employee.zsb");
@@ -149,11 +149,14 @@ int main(int argc, char** argv)
         else
         {
             printHelp();
+            if (argv[1] != std::string("-h") && argv[1] != std::string("--help"))
+                return 2;
         }
     }
     catch (const zserio::CppRuntimeException& e)
     {
         std::cout << e.what() << std::endl;
+        return 1;
     }
 
     return 0;

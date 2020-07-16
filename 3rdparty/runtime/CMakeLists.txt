@@ -19,16 +19,16 @@ cmake_minimum_required(VERSION 2.8.12.2)
 project(ZserioCppRuntime)
 
 set(ZSERIO_CPP_RUNTIME_LIB_SRCS
+    zserio/AnyHolder.h
     zserio/Arrays.h
-    zserio/BitBuffer.h
     zserio/BitBuffer.cpp
+    zserio/BitBuffer.h
     zserio/BitFieldUtil.cpp
     zserio/BitFieldUtil.h
     zserio/BitPositionUtil.cpp
     zserio/BitPositionUtil.h
     zserio/BitSizeOfCalculator.cpp
     zserio/BitSizeOfCalculator.h
-    zserio/BitStreamException.h
     zserio/BitStreamReader.cpp
     zserio/BitStreamReader.h
     zserio/BitStreamWriter.cpp
@@ -37,20 +37,27 @@ set(ZSERIO_CPP_RUNTIME_LIB_SRCS
     zserio/BuildInOperators.h
     zserio/ConstraintException.h
     zserio/CppRuntimeException.h
+    zserio/CppRuntimeVersion.h
     zserio/Enums.h
     zserio/FloatUtil.cpp
     zserio/FloatUtil.h
     zserio/HashCodeUtil.h
+    zserio/IPubsub.h
+    zserio/IService.h
     zserio/ISqliteDatabase.h
     zserio/ISqliteDatabaseReader.h
+    zserio/OptionalHolder.h
     zserio/PreWriteAction.h
+    zserio/PubsubException.h
+    zserio/ServiceException.h
     zserio/SqliteConnection.h
     zserio/SqliteException.h
+    zserio/SqliteFinalizer.h
     zserio/StringConvertUtil.cpp
     zserio/StringConvertUtil.h
     zserio/Types.h
-    zserio/VarUInt64Util.cpp
-    zserio/VarUInt64Util.h
+    zserio/VarSizeUtil.cpp
+    zserio/VarSizeUtil.h
 )
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -63,3 +70,4 @@ add_library(${PROJECT_NAME} STATIC ${ZSERIO_CPP_RUNTIME_LIB_SRCS})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+

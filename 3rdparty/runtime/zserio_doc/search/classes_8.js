@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readercontext',['ReaderContext',['../structzserio_1_1BitStreamReader_1_1ReaderContext.html',1,'zserio::BitStreamReader']]]
+  ['pubsubexception',['PubsubException',['../classzserio_1_1PubsubException.html',1,'zserio']]]
 ];

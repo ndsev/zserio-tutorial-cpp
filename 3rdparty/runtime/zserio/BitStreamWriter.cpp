@@ -1,13 +1,12 @@
 #include <cstring>
 #include <fstream>
 
-#include "zserio/BitStreamException.h"
 #include "zserio/CppRuntimeException.h"
 #include "zserio/StringConvertUtil.h"
-#include "zserio/BitPositionUtil.h"
 #include "zserio/BitSizeOfCalculator.h"
 #include "zserio/FloatUtil.h"
 #include "zserio/BitStreamWriter.h"
+#include "zserio/VarSizeUtil.h"
 
 namespace zserio
 {
@@ -130,11 +129,14 @@ BitStreamWriter::BitStreamWriter(uint8_t* buffer, size_t bufferByteSize) :
         m_hasInternalBuffer(false),
         m_internalBuffer()
 {
-    std::memset(m_buffer, 0, bufferByteSize);
 }
 
 BitStreamWriter::BitStreamWriter(BitBuffer& bitBuffer) :
-        BitStreamWriter(bitBuffer.getBuffer(), bitBuffer.getBitSize())
+        m_buffer(bitBuffer.getBuffer()),
+        m_bitIndex(0),
+        m_bufferBitSize(bitBuffer.getBitSize()),
+        m_hasInternalBuffer(false),
+        m_internalBuffer()
 {
 }
 
@@ -180,61 +182,50 @@ void BitStreamWriter::writeSignedBits64(int64_t data, uint8_t numBits)
 
 void BitStreamWriter::writeVarInt64(int64_t data)
 {
-    static const uint8_t valBitsVarInt64[] = { 6, 7, 7, 7, 7, 7, 7, 8 };
-    writeVarNum(data, valBitsVarInt64, sizeof(valBitsVarInt64) / sizeof(valBitsVarInt64[0]),
-            zserio::bitSizeOfVarInt64(data));
+    writeSignedVarNum(data, 8, zserio::bitSizeOfVarInt64(data) / 8);
 }
 
 void BitStreamWriter::writeVarInt32(int32_t data)
 {
-    static const uint8_t valBitsVarInt32[] = { 6, 7, 7, 8 };
-    writeVarNum(data, valBitsVarInt32, sizeof(valBitsVarInt32) / sizeof(valBitsVarInt32[0]),
-            zserio::bitSizeOfVarInt32(data));
+    writeSignedVarNum(data, 4, zserio::bitSizeOfVarInt32(data) / 8);
 }
 
 void BitStreamWriter::writeVarInt16(int16_t data)
 {
-    static const uint8_t valBitsVarInt16[] = { 6, 8 };
-    writeVarNum(data, valBitsVarInt16, sizeof(valBitsVarInt16) / sizeof(valBitsVarInt16[0]),
-            zserio::bitSizeOfVarInt16(data));
+    writeSignedVarNum(data, 2, zserio::bitSizeOfVarInt16(data) / 8);
 }
 
 void BitStreamWriter::writeVarUInt64(uint64_t data)
 {
-    static const uint8_t valBitsVarUInt64[] = { 7, 7, 7, 7, 7, 7, 7, 8 };
-    writeVarAbsNum(data, false, valBitsVarUInt64, sizeof(valBitsVarUInt64) / sizeof(valBitsVarUInt64[0]),
-            zserio::bitSizeOfVarUInt64(data));
+    writeUnsignedVarNum(data, 8, zserio::bitSizeOfVarUInt64(data) / 8);
 }
 
 void BitStreamWriter::writeVarUInt32(uint32_t data)
 {
-    static const uint8_t valBitsVarUInt32[] = { 7, 7, 7, 8 };
-    writeVarAbsNum(data, false, valBitsVarUInt32, sizeof(valBitsVarUInt32) / sizeof(valBitsVarUInt32[0]),
-            zserio::bitSizeOfVarUInt32(data));
+    writeUnsignedVarNum(data, 4, zserio::bitSizeOfVarUInt32(data) / 8);
 }
 
 void BitStreamWriter::writeVarUInt16(uint16_t data)
 {
-    static const uint8_t valBitsVarUInt16[] = { 7, 8 };
-    writeVarAbsNum(data, false, valBitsVarUInt16, sizeof(valBitsVarUInt16) / sizeof(valBitsVarUInt16[0]),
-            zserio::bitSizeOfVarUInt16(data));
+    writeUnsignedVarNum(data, 2, zserio::bitSizeOfVarUInt16(data) / 8);
 }
 
 void BitStreamWriter::writeVarInt(int64_t data)
 {
-    static const uint8_t valBitsVarInt[] = { 6, 7, 7, 7, 7, 7, 7, 7, 8 };
     if (data == INT64_MIN)
         writeBits(0x80, 8); // INT64_MIN is encoded as -0
     else
-        writeVarNum(data, valBitsVarInt, sizeof(valBitsVarInt) / sizeof(valBitsVarInt[0]),
-                zserio::bitSizeOfVarInt(data));
+        writeSignedVarNum(data, 9, zserio::bitSizeOfVarInt(data) / 8);
 }
 
 void BitStreamWriter::writeVarUInt(uint64_t data)
 {
-    static const uint8_t valBitsVarUInt[] = { 7, 7, 7, 7, 7, 7, 7, 7, 8 };
-    writeVarAbsNum(data, false, valBitsVarUInt, sizeof(valBitsVarUInt) / sizeof(valBitsVarUInt[0]),
-            zserio::bitSizeOfVarUInt(data));
+    writeUnsignedVarNum(data, 9, zserio::bitSizeOfVarUInt(data) / 8);
+}
+
+void BitStreamWriter::writeVarSize(uint32_t data)
+{
+    writeUnsignedVarNum(data, 5, zserio::bitSizeOfVarSize(data) / 8);
 }
 
 void BitStreamWriter::writeFloat16(float data)
@@ -258,22 +249,22 @@ void BitStreamWriter::writeFloat64(double data)
 void BitStreamWriter::writeString(const std::string& data)
 {
     const size_t len = data.size();
-    BitStreamWriter::writeVarUInt64(len);
+    writeVarSize(convertSizeToUInt32(len));
     for (size_t i = 0; i < len; ++i)
     {
-        BitStreamWriter::writeBits(static_cast<uint8_t>(data[i]), 8);
+        writeBits(static_cast<uint8_t>(data[i]), 8);
     }
 }
 
 void BitStreamWriter::writeBool(bool data)
 {
-    BitStreamWriter::writeBits((data ? 1 : 0), 1);
+    writeBits((data ? 1 : 0), 1);
 }
 
 void BitStreamWriter::writeBitBuffer(const BitBuffer& bitBuffer)
 {
     const size_t bitSize = bitBuffer.getBitSize();
-    writeVarUInt64(bitSize);
+    writeVarSize(convertSizeToUInt32(bitSize));
 
     const uint8_t* buffer = bitBuffer.getBuffer();
     size_t numBytesToWrite = bitSize / 8;
@@ -293,19 +284,21 @@ void BitStreamWriter::writeBitBuffer(const BitBuffer& bitBuffer)
     {
         // we are aligned to byte
         setBitPosition(beginBitPosition + numBytesToWrite * 8);
-        memcpy(m_buffer + beginBitPosition / 8, buffer, numBytesToWrite);
+        if (hasWriteBuffer())
+            memcpy(m_buffer + beginBitPosition / 8, buffer, numBytesToWrite);
         buffer += numBytesToWrite;
     }
 
     if (numRestBits > 0)
-        writeUnsignedBits(*buffer, numRestBits);
+        writeUnsignedBits(*buffer >> (8 - numRestBits), numRestBits);
 }
 
 void BitStreamWriter::setBitPosition(BitPosType position)
 {
-    if (position > m_bufferBitSize)
+    if (hasWriteBuffer())
     {
-        throw BitStreamException("BitStreamWriter: Reached eof(), setting of bit position failed.");
+        if (!ensureCapacity(position))
+            throw CppRuntimeException("BitStreamWriter: Reached eof(), setting of bit position failed.");
     }
 
     m_bitIndex = position;
@@ -323,7 +316,7 @@ void BitStreamWriter::alignTo(size_t alignment)
 
 const uint8_t* BitStreamWriter::getWriteBuffer(size_t& writeBufferByteSize) const
 {
-    writeBufferByteSize = m_bufferBitSize / 8;
+    writeBufferByteSize = (m_bufferBitSize + 7) / 8;
 
     return m_buffer;
 }
@@ -334,7 +327,7 @@ void BitStreamWriter::writeBufferToFile(const std::string& filename) const
     if (!os)
         throw CppRuntimeException("WriteBitStreamToFile: Failed to open '" + filename +"' for writing!");
 
-    os.write(reinterpret_cast<const char*>(m_buffer), m_bufferBitSize / 8);
+    os.write(reinterpret_cast<const char*>(m_buffer), (m_bufferBitSize + 7) / 8);
     if (!os)
         throw CppRuntimeException("WriteBitStreamToFile: Failed to write '" + filename +"'!");
 }
@@ -347,47 +340,43 @@ inline void BitStreamWriter::writeUnsignedBits(uint32_t data, uint8_t numBits)
         return;
     }
 
-    const size_t freeBitSize = m_bufferBitSize - m_bitIndex;
-    if (numBits > freeBitSize)
-    {
-        if (!m_hasInternalBuffer)
-            throw BitStreamException("BitStreamWriter: Reached eof(), writing to stream failed.");
+    if (!ensureCapacity(m_bitIndex + numBits))
+        throw CppRuntimeException("BitStreamWriter: Reached eof(), writing to stream failed.");
 
-        // we have internal buffer which can be resized
-        const size_t missingBytes = (numBits - freeBitSize + 7) / 8;
-        m_internalBuffer.resize(m_internalBuffer.size() + missingBytes);
-        m_buffer = &m_internalBuffer[0];
-        m_bufferBitSize = m_internalBuffer.size() * 8;
-    }
+    uint8_t restNumBits = numBits;
+    const uint8_t bitsUsed = m_bitIndex & 0x07;
+    uint8_t bitsFree = 8 - bitsUsed;
+    size_t byteIndex = m_bitIndex / 8;
 
-    const uint8_t org_numBits = numBits;
-    uint8_t bits_free = 8 - (m_bitIndex & 0x07);
-    size_t byte_index = m_bitIndex / 8;
-
-    if (numBits > bits_free)
+    if (restNumBits > bitsFree)
     {
         // first part
-        m_buffer[byte_index++] |= static_cast<uint8_t>(data >> (numBits - bits_free));
-        numBits -= bits_free;
+        const uint8_t shiftNum = restNumBits - bitsFree;
+        const uint8_t maskedByte = m_buffer[byteIndex] & ~(0xFF >> bitsUsed);
+        m_buffer[byteIndex++] = maskedByte | static_cast<uint8_t>(data >> shiftNum);
+        restNumBits -= bitsFree;
 
         // middle parts
-        while (numBits >= 8)
+        while (restNumBits >= 8)
         {
-            numBits -= 8;
-            m_buffer[byte_index++] = static_cast<uint8_t>((data >> numBits) & MAX_U32_VALUES[8]);
+            restNumBits -= 8;
+            m_buffer[byteIndex++] = static_cast<uint8_t>((data >> restNumBits) & MAX_U32_VALUES[8]);
         }
 
         // reset bits free
-        bits_free = 8;
+        bitsFree = 8;
     }
 
     // last part
-    if (numBits > 0)
+    if (restNumBits > 0)
     {
-        m_buffer[byte_index] |= static_cast<uint8_t>((data & MAX_U32_VALUES[numBits]) << (bits_free - numBits));
+        const uint8_t shiftNum = bitsFree - restNumBits;
+        const uint32_t mask = MAX_U32_VALUES[restNumBits];
+        const uint8_t maskedByte = m_buffer[byteIndex] & ~static_cast<uint8_t>(mask << shiftNum);
+        m_buffer[byteIndex] = maskedByte | static_cast<uint8_t>((data & mask) << shiftNum);
     }
 
-    m_bitIndex += org_numBits;
+    m_bitIndex += numBits;
 }
 
 inline void BitStreamWriter::writeUnsignedBits64(uint64_t data, uint8_t numBits)
@@ -403,32 +392,67 @@ inline void BitStreamWriter::writeUnsignedBits64(uint64_t data, uint8_t numBits)
     }
 }
 
-inline void BitStreamWriter::writeVarNum(int64_t value, const uint8_t* valBits, size_t valBitsSize,
-        size_t numVarBits)
+inline void BitStreamWriter::writeSignedVarNum(int64_t value, size_t maxVarBytes, size_t numVarBytes)
 {
     const uint64_t absValue = static_cast<uint64_t>(value < 0 ? -value : value);
-    writeVarAbsNum(absValue, value < 0, valBits, valBitsSize, numVarBits);
+    writeVarNum(absValue, true, value < 0, maxVarBytes, numVarBytes);
 }
 
-inline void BitStreamWriter::writeVarAbsNum(uint64_t value, bool sign, const uint8_t* valBits,
-        size_t valBitsSize, size_t numVarBits)
+inline void BitStreamWriter::writeUnsignedVarNum(uint64_t value, size_t maxVarBytes, size_t numVarBytes)
 {
-    static const uint64_t bitMasks[8] = { 1, 3, 7, 15, 31, 63, 127, 255 };
-    const size_t numVarBytes = bitsToBytes(numVarBits);
-    for (size_t i = numVarBytes; i > 0; i--)
+    writeVarNum(value, false, false, maxVarBytes, numVarBytes);
+}
+
+inline void BitStreamWriter::writeVarNum(uint64_t value, bool isSigned, bool isNegative, size_t maxVarBytes,
+        size_t numVarBytes)
+{
+    static const uint64_t bitMasks[8] = { 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF };
+    const bool hasMaxByteRange = (numVarBytes == maxVarBytes);
+
+    for (size_t i = 0; i < numVarBytes; i++)
     {
-        const uint8_t numBits = valBits[numVarBytes - i];
-        if (numBits < 7)
+        uint8_t byte = 0x00;
+        uint8_t numBits = 8;
+        const bool hasNextByte = (i < numVarBytes - 1);
+        const bool hasSignBit = (isSigned && i == 0);
+        if (hasSignBit)
         {
-            writeBool(sign); // sign
+            if (isNegative)
+                byte |= 0x80;
+            numBits--;
         }
-        if (numBits < 8)
+        if (hasNextByte)
         {
-            writeBool(i > 1); // hasNextByte
+            numBits--;
+            byte |= (0x01 << numBits); // use bit 6 if signed bit is present, use bit 7 otherwise
         }
-        const size_t shiftBits = (i - 1) * 7 + ((numVarBytes == valBitsSize && i > 1) ? 1 : 0);
-        writeBits(static_cast<uint8_t>((value >> shiftBits) & bitMasks[numBits - 1]), numBits);
+        else // this is the last byte
+        {
+            if (!hasMaxByteRange) // next byte indicator is not used in last byte in case of max byte range
+                numBits--;
+        }
+
+        const size_t shiftBits = (numVarBytes - (i + 1)) * 7 + ((hasMaxByteRange && hasNextByte) ? 1 : 0);
+        byte |= static_cast<uint8_t>((value >> shiftBits) & bitMasks[numBits - 1]);
+        writeUnsignedBits(byte, 8);
     }
+}
+
+inline bool BitStreamWriter::ensureCapacity(size_t bitSize)
+{
+    if (bitSize > m_bufferBitSize)
+    {
+        if (!m_hasInternalBuffer)
+            return false;
+
+        // we have internal buffer which can be resized
+        const size_t missingBytes = (bitSize - m_bufferBitSize + 7) / 8;
+        m_internalBuffer.resize(m_internalBuffer.size() + missingBytes);
+        m_buffer = &m_internalBuffer[0];
+        m_bufferBitSize = m_internalBuffer.size() * 8;
+    }
+
+    return true;
 }
 
 } // namespace zserio

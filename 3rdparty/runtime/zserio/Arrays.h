@@ -7,8 +7,7 @@
 #include "zserio/BitStreamWriter.h"
 #include "zserio/BitStreamReader.h"
 #include "zserio/BitPositionUtil.h"
-#include "zserio/VarUInt64Util.h"
-#include "zserio/BitStreamException.h"
+#include "zserio/VarSizeUtil.h"
 #include "zserio/PreWriteAction.h"
 #include "zserio/BitSizeOfCalculator.h"
 #include "zserio/Enums.h"
@@ -74,14 +73,14 @@ size_t bitSizeOfAligned(const ARRAY_TRAITS& arrayTraits, const std::vector<typen
     if (ARRAY_TRAITS::IS_BITSIZEOF_CONSTANT && arraySize > 0)
     {
         const size_t elementBitSize = arrayTraits.bitSizeOf(bitPosition, array.at(0));
-        endBitPosition = alignTo(NUM_BITS_PER_BYTE, endBitPosition);
-        endBitPosition += (arraySize - 1) * alignTo(NUM_BITS_PER_BYTE, elementBitSize) + elementBitSize;
+        endBitPosition = alignTo(8, endBitPosition);
+        endBitPosition += (arraySize - 1) * alignTo(8, elementBitSize) + elementBitSize;
     }
     else
     {
         for (const typename ARRAY_TRAITS::type& element : array)
         {
-            endBitPosition = alignTo(NUM_BITS_PER_BYTE, endBitPosition);
+            endBitPosition = alignTo(8, endBitPosition);
             endBitPosition += arrayTraits.bitSizeOf(endBitPosition, element);
         }
     }
@@ -102,7 +101,7 @@ template <typename ARRAY_TRAITS>
 size_t bitSizeOfAuto(const ARRAY_TRAITS& arrayTraits, const std::vector<typename ARRAY_TRAITS::type>& array,
         size_t bitPosition)
 {
-    const size_t lengthBitSizeOf = zserio::bitSizeOfVarUInt64(array.size());
+    const size_t lengthBitSizeOf = zserio::bitSizeOfVarSize(convertSizeToUInt32(array.size()));
 
     return lengthBitSizeOf + bitSizeOf(arrayTraits, array, bitPosition + lengthBitSizeOf);
 }
@@ -120,7 +119,7 @@ template <typename ARRAY_TRAITS>
 size_t bitSizeOfAlignedAuto(const ARRAY_TRAITS& arrayTraits,
         const std::vector<typename ARRAY_TRAITS::type>& array, size_t bitPosition)
 {
-    const size_t lengthBitSizeOf = zserio::bitSizeOfVarUInt64(array.size());
+    const size_t lengthBitSizeOf = zserio::bitSizeOfVarSize(convertSizeToUInt32(array.size()));
 
     return lengthBitSizeOf + bitSizeOfAligned(arrayTraits, array, bitPosition + lengthBitSizeOf);
 }
@@ -172,7 +171,7 @@ size_t initializeOffsetsAligned(const ARRAY_TRAITS& arrayTraits,
     // can't use 'typename ARRAY_TRAITS::type&' because std::vector<bool> returns rvalue
     for (auto&& element : array)
     {
-        endBitPosition = alignTo(NUM_BITS_PER_BYTE, endBitPosition);
+        endBitPosition = alignTo(8, endBitPosition);
         offsetInitializer.initializeOffset(index, bitsToBytes(endBitPosition));
         endBitPosition = arrayTraits.initializeOffsets(endBitPosition, element);
         index++;
@@ -194,7 +193,8 @@ template <typename ARRAY_TRAITS>
 size_t initializeOffsetsAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         size_t bitPosition)
 {
-    return initializeOffsets(arrayTraits, array, bitPosition + zserio::bitSizeOfVarUInt64(array.size()));
+    return initializeOffsets(arrayTraits, array, bitPosition +
+            zserio::bitSizeOfVarSize(convertSizeToUInt32(array.size())));
 }
 
 /**
@@ -212,8 +212,8 @@ size_t initializeOffsetsAlignedAuto(const ARRAY_TRAITS& arrayTraits,
         std::vector<typename ARRAY_TRAITS::type>& array, size_t bitPosition,
         const OFFSET_INITIALIZER& offsetInitializer)
 {
-    return initializeOffsetsAligned(arrayTraits, array, bitPosition + zserio::bitSizeOfVarUInt64(array.size()),
-            offsetInitializer);
+    return initializeOffsetsAligned(arrayTraits, array, bitPosition +
+            zserio::bitSizeOfVarSize(convertSizeToUInt32(array.size())), offsetInitializer);
 }
 
 /**
@@ -251,7 +251,7 @@ void readAligned(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRA
     array.reserve(size);
     for (size_t index = 0; index < size; ++index)
     {
-        in.alignTo(NUM_BITS_PER_BYTE);
+        in.alignTo(8);
         offsetChecker.checkOffset(index, bitsToBytes(in.getBitPosition()));
         arrayTraits.read(array, in, index);
     }
@@ -268,8 +268,8 @@ template <typename ARRAY_TRAITS>
 void readAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         BitStreamReader& in)
 {
-    const uint64_t arraySize = in.readVarUInt64();
-    read<ARRAY_TRAITS>(arrayTraits, array, in, convertVarUInt64ToArraySize(arraySize));
+    const uint32_t arraySize = in.readVarSize();
+    read(arrayTraits, array, in, static_cast<size_t>(arraySize));
 }
 
 /**
@@ -284,8 +284,8 @@ template <typename ARRAY_TRAITS, typename OFFSET_CHECKER>
 void readAlignedAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         BitStreamReader& in, const OFFSET_CHECKER& offsetChecker)
 {
-    const uint64_t arraySize = in.readVarUInt64();
-    readAligned(arrayTraits, array, in, convertVarUInt64ToArraySize(arraySize), offsetChecker);
+    const uint32_t arraySize = in.readVarSize();
+    readAligned(arrayTraits, array, in, static_cast<size_t>(arraySize), offsetChecker);
 }
 
 /**
@@ -299,24 +299,10 @@ template <typename ARRAY_TRAITS>
 void readImplicit(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         BitStreamReader& in)
 {
-    array.clear();
-    BitStreamReader::BitPosType bitPosition;
-    // we must read until end of the stream because we don't know element sizes
-    while (true)
-    {
-        bitPosition = in.getBitPosition();
-        const size_t index = array.size();
-        try
-        {
-            arrayTraits.read(array, in, index);
-        }
-        catch (BitStreamException&)
-        {
-            // set correct end bit position in the stream avoiding padding at the end
-            in.setBitPosition(bitPosition);
-            break;
-        }
-    }
+    static_assert(arrayTraits.IS_BITSIZEOF_CONSTANT, "Implicit array elements must have constant bit size!");
+    const size_t remainingBits = in.getBufferBitSize() - in.getBitPosition();
+    const size_t arraySize = remainingBits / arrayTraits.bitSizeOf();
+    read(arrayTraits, array, in, arraySize);
 }
 
 /**
@@ -324,7 +310,7 @@ void readImplicit(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TR
  *
  * \param arrayTraits Array traits which know how to write a single element.
  * \param array Array to write.
- * \param out Bit stream writer
+ * \param out Bit stream writer to use.
  */
 template <typename ARRAY_TRAITS>
 void write(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
@@ -340,7 +326,7 @@ void write(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::t
  *
  * \param arrayTraits Array traits which know how to write a single element.
  * \param array Array to write.
- * \param out Bit stream writer
+ * \param out Bit stream writer to use.
  * \param offsetChecker Offset checker used to check offsets before writing.
  */
 template <typename ARRAY_TRAITS, typename OFFSET_CHECKER>
@@ -351,7 +337,7 @@ void writeAligned(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TR
     // can't use 'typename ARRAY_TRAITS::type&' because std::vector<bool> returns rvalue
     for (auto&& element : array)
     {
-        out.alignTo(NUM_BITS_PER_BYTE);
+        out.alignTo(8);
         offsetChecker.checkOffset(index, bitsToBytes(out.getBitPosition()));
         arrayTraits.write(out, element);
         index++;
@@ -363,13 +349,13 @@ void writeAligned(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TR
  *
  * \param arrayTraits Array traits which know how to write a single element.
  * \param array Array to write.
- * \param out Bit stream writer
+ * \param out Bit stream writer to use.
  */
 template <typename ARRAY_TRAITS>
 void writeAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         BitStreamWriter& out)
 {
-    out.writeVarUInt64(static_cast<uint64_t>(array.size()));
+    out.writeVarSize(convertSizeToUInt32(array.size()));
     write(arrayTraits, array, out);
 }
 
@@ -378,14 +364,14 @@ void writeAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAIT
  *
  * \param arrayTraits Array traits which know how to write a single element.
  * \param array Array to write.
- * \param out Bit stream writer
+ * \param out Bit stream writer to use.
  * \param offsetChecker Offset checker used to check offsets before writing.
  */
 template <typename ARRAY_TRAITS, typename OFFSET_CHECKER>
 void writeAlignedAuto(const ARRAY_TRAITS& arrayTraits, std::vector<typename ARRAY_TRAITS::type>& array,
         BitStreamWriter& out, const OFFSET_CHECKER& offsetChecker)
 {
-    out.writeVarUInt64(static_cast<uint64_t>(array.size()));
+    out.writeVarSize(convertSizeToUInt32(array.size()));
     writeAligned(arrayTraits, array, out, offsetChecker);
 }
 
@@ -522,6 +508,16 @@ public:
      */
     size_t bitSizeOf(size_t, type) const
     {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    size_t bitSizeOf() const
+    {
         return m_numBits;
     }
 
@@ -551,7 +547,7 @@ public:
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     void write(BitStreamWriter& out, type value) const
@@ -582,6 +578,16 @@ struct StdIntArrayTraits
      */
     static size_t bitSizeOf(size_t, type)
     {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf()
+    {
         return NUM_BITS;
     }
 
@@ -611,7 +617,7 @@ struct StdIntArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -680,7 +686,7 @@ struct VarIntNNArrayTraits<int16_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -741,7 +747,7 @@ struct VarIntNNArrayTraits<int32_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -801,7 +807,7 @@ struct VarIntNNArrayTraits<int64_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -861,7 +867,7 @@ struct VarIntNNArrayTraits<uint16_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -921,7 +927,7 @@ struct VarIntNNArrayTraits<uint32_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -981,7 +987,7 @@ struct VarIntNNArrayTraits<uint64_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1047,7 +1053,7 @@ struct VarIntArrayTraits<int64_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1107,12 +1113,71 @@ struct VarIntArrayTraits<uint64_t>
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
     {
         out.writeVarUInt(value);
+    }
+
+    /** Determines whether the bit size of the single element is constant. */
+    static const bool IS_BITSIZEOF_CONSTANT = false;
+};
+
+/**
+ * Array traits specialization for Zserio varsize type.
+ */
+struct VarSizeArrayTraits
+{
+    /** Type of the single array element. */
+    typedef uint32_t type;
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \param value Element's value.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf(size_t, type value)
+    {
+        return zserio::bitSizeOfVarSize(value);
+    }
+
+    /**
+     * Initializes indexed offsets of the single array element.
+     *
+     * \param bitPosition Current bit position.
+     * \param value Element's value.
+     *
+     * \return Updated bit position which points to the first bit after the array element.
+     */
+    static size_t initializeOffsets(size_t bitPosition, type value)
+    {
+        return bitPosition + bitSizeOf(bitPosition, value);
+    }
+
+    /**
+     * Reads the single array element.
+     *
+     * \param array Array to read the element to.
+     * \param in Bit stream reader.
+     */
+    static void read(std::vector<type>& array, BitStreamReader& in, size_t)
+    {
+        array.push_back(in.readVarSize());
+    }
+
+    /**
+     * Writes the single array element.
+     *
+     * \param out Bit stream writer to use.
+     * \param value Element's value to write.
+     */
+    static void write(BitStreamWriter& out, type value)
+    {
+        out.writeVarSize(value);
     }
 
     /** Determines whether the bit size of the single element is constant. */
@@ -1133,6 +1198,16 @@ struct Float16ArrayTraits
      * \return Bit size of the array element.
      */
     static size_t bitSizeOf(size_t, type)
+    {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf()
     {
         return 16;
     }
@@ -1164,7 +1239,7 @@ struct Float16ArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1190,6 +1265,16 @@ struct Float32ArrayTraits
      * \return Bit size of the array element.
      */
     static size_t bitSizeOf(size_t, type)
+    {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf()
     {
         return 32;
     }
@@ -1221,7 +1306,7 @@ struct Float32ArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1247,6 +1332,16 @@ struct Float64ArrayTraits
      * \return Bit size of the array element.
      */
     static size_t bitSizeOf(size_t, type)
+    {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf()
     {
         return 64;
     }
@@ -1278,7 +1373,7 @@ struct Float64ArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1304,6 +1399,16 @@ struct BoolArrayTraits
      * \return Bit size of the array element.
      */
     static size_t bitSizeOf(size_t, type)
+    {
+        return bitSizeOf();
+    }
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf()
     {
         return 1;
     }
@@ -1335,7 +1440,7 @@ struct BoolArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
@@ -1394,10 +1499,10 @@ struct StringArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
-    static void write(BitStreamWriter& out, type value)
+    static void write(BitStreamWriter& out, const type& value)
     {
         out.writeString(value);
     }
@@ -1453,10 +1558,10 @@ struct BitBufferArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
-    static void write(BitStreamWriter& out, type value)
+    static void write(BitStreamWriter& out, const type& value)
     {
         out.writeBitBuffer(value);
     }
@@ -1513,12 +1618,73 @@ struct EnumArrayTraits
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type value)
     {
         zserio::write(out, value);
+    }
+
+    // Be aware that T can be varuint, so bitSizeOf cannot return constant value.
+    /** Determines whether the bit size of the single element is constant. */
+    static const bool IS_BITSIZEOF_CONSTANT = false;
+};
+
+/**
+ * Array traits for Zserio bitmask type.
+ */
+template <typename T>
+struct BitmaskArrayTraits
+{
+    /** Type of the single array element. */
+    typedef T type;
+
+    /**
+     * Calculates bit size of the array element.
+     *
+     * \param value Element's value.
+     *
+     * \return Bit size of the array element.
+     */
+    static size_t bitSizeOf(size_t, type value)
+    {
+        return value.bitSizeOf();
+    }
+
+    /**
+     * Initializes indexed offsets of the single array element.
+     *
+     * \param bitPosition Current bit position.
+     * \param value Element's value.
+     *
+     * \return Updated bit position which points to the first bit after the array element.
+     */
+    static size_t initializeOffsets(size_t bitPosition, type value)
+    {
+        return value.initializeOffsets(bitPosition);
+    }
+
+    /**
+     * Reads the single array element.
+     *
+     * \param array Array to read the element to.
+     * \param in Bit stream reader.
+     */
+    static void read(std::vector<type>& array, BitStreamReader& in, size_t)
+    {
+        array.emplace_back(in);
+    }
+
+    /**
+     * Writes the single array element.
+     *
+     * \param out Bit stream writer to use.
+     * \param value Element's value to write.
+     */
+    static void write(BitStreamWriter& out, const type& value)
+    {
+        value.write(out, NO_PRE_WRITE_ACTION);
     }
 
     // Be aware that T can be varuint, so bitSizeOf cannot return constant value.
@@ -1600,7 +1766,7 @@ public:
     /**
      * Writes the single array element.
      *
-     * \param out Bit stream writer.
+     * \param out Bit stream writer to use.
      * \param value Element's value to write.
      */
     static void write(BitStreamWriter& out, type& value)

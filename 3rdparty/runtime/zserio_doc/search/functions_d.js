@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valuetoenum',['valueToEnum',['../namespacezserio.html#a553f780a4451558a714fd512ed705253',1,'zserio']]]
+  ['unsubscribe',['unsubscribe',['../classzserio_1_1IPubsub.html#a7989ac82afbdfd9f8a0aad4cbc4b8dae',1,'zserio::IPubsub']]]
 ];
