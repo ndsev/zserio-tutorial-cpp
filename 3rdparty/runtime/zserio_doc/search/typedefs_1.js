@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heapoptionalholder',['HeapOptionalHolder',['../namespacezserio.html#ac98da4c1043f7dc7e22ce455f760657d',1,'zserio']]]
+  ['heapoptionalholder_400',['HeapOptionalHolder',['../namespacezserio.html#a67b7c363a3a841f2831022fb17606d9f',1,'zserio']]]
 ];

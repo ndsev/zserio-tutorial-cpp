@@ -96,11 +96,11 @@ static void readEmployee(const std::string& employeeFile)
     std::cout << "Role: " << zserio::enumToString(employee.getRole()) << std::endl;
 
     /* we have to check for optionals whether they are in the stream */
-    if (employee.hasBonus())
+    if (employee.isBonusUsed())
         std::cout << "Bonus: " << employee.getBonus() << std::endl;
 
     /* we also have to check for conditions if they applied */
-    if (employee.hasSkills())
+    if (employee.isSkillsUsed())
     {
         const std::vector<tutorial::Experience>& skills  = employee.getSkills();
         for (std::vector<tutorial::Experience>::const_iterator it = skills.begin(); it != skills.end(); ++it)

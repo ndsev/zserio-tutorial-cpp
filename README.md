@@ -344,7 +344,7 @@ std::cout << "Salary: " << employee.getSalary() << std::endl;
 std::cout << "Role: " << zserio::enumToString(employee.getRole()) << std::endl;
 
 /* we have to check for optionals whether they are in the stream */
-if (employee.hasBonus())
+if (employee.isBonusUsed())
     std::cout << "Bonus: " << employee.getBonus() << std::endl;
 ```
 

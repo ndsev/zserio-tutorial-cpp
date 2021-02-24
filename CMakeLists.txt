@@ -8,10 +8,7 @@ set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 if (REGENERATE_CPP_SOURCES)
     find_package(Java REQUIRED)
-    
-    # this won't be needed if zserio release 2.0.0 will be out
-    set(CMAKE_CXX_STANDARD 11)
-    
+
     function(download_file URL_PATH LOCAL_FILE_FULL_NAME MESSAGE_DETAIL)
         if (NOT EXISTS "${LOCAL_FILE_FULL_NAME}")
             MESSAGE(STATUS "Downloading ${MESSAGE_DETAIL}")
@@ -23,7 +20,7 @@ if (REGENERATE_CPP_SOURCES)
             endif ()
         endif()
     endfunction()
-    
+
     function(unzip_file LOCAL_FILE_DIR LOCAL_FILE_NAME MESSAGE_DETAIL)
         set(LOCAL_FILE_FULL_NAME "${LOCAL_FILE_DIR}/${LOCAL_FILE_NAME}")
         MESSAGE(STATUS "Unzipping ${MESSAGE_DETAIL}")
@@ -34,7 +31,7 @@ if (REGENERATE_CPP_SOURCES)
             message(FATAL_ERROR "Unzipping failed!")
         endif ()
     endfunction()
-    
+
     function(get_latest_zserio_version DOWNLOAD_DIR OUTPUT_VERSION_VAR_NAME)
         set(LATEST_RELEASE_JSON_FULL_NAME "${DOWNLOAD_DIR}/latest_release.json")
         download_file("https://api.github.com/repos/ndsev/zserio/releases/latest"
@@ -44,16 +41,16 @@ if (REGENERATE_CPP_SOURCES)
         string(REGEX MATCH "\"tag_name\": \"v([0-9\.]+)\"" REGEX_RESULT ${LATEST_RELEASE_JSON})
         set(${OUTPUT_VERSION_VAR_NAME} "${CMAKE_MATCH_1}" PARENT_SCOPE)
     endfunction()
-    
+
     set(TUTORIAL_DOWNLOAD_DIR "${CMAKE_CURRENT_BINARY_DIR}/download")
     file(MAKE_DIRECTORY "${TUTORIAL_DOWNLOAD_DIR}") 
-    
+
     get_latest_zserio_version("${TUTORIAL_DOWNLOAD_DIR}" LATEST_ZSERIO_VERSION)
-    
+
     set(GITHUB_HTTPS_DOWNLOAD "https://github.com/ndsev/zserio/releases/download")
     set(ZSERIO_BIN_ZIP_NAME "zserio-${LATEST_ZSERIO_VERSION}-bin.zip")
     set(ZSERIO_RUNTIME_LIBS_ZIP_NAME "zserio-${LATEST_ZSERIO_VERSION}-runtime-libs.zip")
-    
+
     download_file("${GITHUB_HTTPS_DOWNLOAD}/v${LATEST_ZSERIO_VERSION}/${ZSERIO_BIN_ZIP_NAME}"
             "${TUTORIAL_DOWNLOAD_DIR}/${ZSERIO_BIN_ZIP_NAME}"
             "zserio v${LATEST_ZSERIO_VERSION} binaries")
@@ -67,7 +64,7 @@ if (REGENERATE_CPP_SOURCES)
             "${ZSERIO_RUNTIME_LIBS_ZIP_NAME}"
             "zserio v${LATEST_ZSERIO_VERSION} runtime libraries")
     file(COPY "${TUTORIAL_DOWNLOAD_DIR}/runtime_libs/cpp/" DESTINATION "${TUTORIAL_ZSERIO_RUNTIME_DIR}")
-    
+
     MESSAGE(STATUS "Compiling zserio tutorial schema")
     execute_process(COMMAND ${Java_JAVA_EXECUTABLE} -jar "${TUTORIAL_DOWNLOAD_DIR}/zserio.jar"
             -cpp ${TUTORIAL_ZSERIO_GEN_DIR} -src ${CMAKE_CURRENT_SOURCE_DIR} tutorial.zs
