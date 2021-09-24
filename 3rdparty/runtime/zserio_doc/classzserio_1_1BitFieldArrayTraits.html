@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -99,27 +99,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Arrays_8h_source.html">Arrays.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a47e885d0a2c8560abc88fb4bf76ca8c3"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a></td></tr>
-<tr class="separator:a47e885d0a2c8560abc88fb4bf76ca8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add2a251d6c61b0f2553bcda2c5893ce4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a> = T</td></tr>
+<tr class="separator:add2a251d6c61b0f2553bcda2c5893ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa0813a933ba38a108b614728e1d2c8a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#aa0813a933ba38a108b614728e1d2c8a2">BitFieldArrayTraits</a> (uint8_t numBits)</td></tr>
 <tr class="separator:aa0813a933ba38a108b614728e1d2c8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3edd05d14e05cd5e1916268096e61a97"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a3edd05d14e05cd5e1916268096e61a97">bitSizeOf</a> (size_t, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a>) const </td></tr>
-<tr class="separator:a3edd05d14e05cd5e1916268096e61a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8690ed687ee4f7f5b2411f6e77b7fff9"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a8690ed687ee4f7f5b2411f6e77b7fff9">bitSizeOf</a> () const </td></tr>
 <tr class="separator:a8690ed687ee4f7f5b2411f6e77b7fff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bd134f503b9bdc3561cfae48b06a3ba"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a0bd134f503b9bdc3561cfae48b06a3ba">initializeOffsets</a> (size_t bitPosition, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a>) const </td></tr>
-<tr class="separator:a0bd134f503b9bdc3561cfae48b06a3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e49f0cde704f92d8937380907cad4ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a3e49f0cde704f92d8937380907cad4ce">read</a> (std::vector&lt; <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a> &gt; &amp;array, <a class="el" href="classzserio_1_1BitStreamReader.html">BitStreamReader</a> &amp;in, size_t) const </td></tr>
-<tr class="separator:a3e49f0cde704f92d8937380907cad4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6549253834b2f767241e3af17a535530"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a6549253834b2f767241e3af17a535530">write</a> (<a class="el" href="classzserio_1_1BitStreamWriter.html">BitStreamWriter</a> &amp;out, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a> value) const </td></tr>
-<tr class="separator:a6549253834b2f767241e3af17a535530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e8e84fc1f18797ab618d86b67e69e41"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a6e8e84fc1f18797ab618d86b67e69e41">bitSizeOf</a> (size_t, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>) const </td></tr>
+<tr class="separator:a6e8e84fc1f18797ab618d86b67e69e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63ee2be2db59947ff1f4d4200a1ab81"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#ae63ee2be2db59947ff1f4d4200a1ab81">initializeOffsets</a> (size_t bitPosition, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>) const </td></tr>
+<tr class="separator:ae63ee2be2db59947ff1f4d4200a1ab81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dfbb85dd79640d604177c55cc8dd57a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a4dfbb85dd79640d604177c55cc8dd57a">read</a> (<a class="el" href="classzserio_1_1BitStreamReader.html">BitStreamReader</a> &amp;in) const </td></tr>
+<tr class="separator:a4dfbb85dd79640d604177c55cc8dd57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043d17dd69e8da16e76be50f99b8578f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a043d17dd69e8da16e76be50f99b8578f">write</a> (<a class="el" href="classzserio_1_1BitStreamWriter.html">BitStreamWriter</a> &amp;out, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a> element) const </td></tr>
+<tr class="separator:a043d17dd69e8da16e76be50f99b8578f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -130,24 +130,24 @@ Static Public Attributes</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class zserio::BitFieldArrayTraits&lt; T &gt;</h3>
 
-<p>Array traits for bit field Zserio types (int:5, bit:5, etc...). </p>
+<p><a class="el" href="classzserio_1_1Array.html">Array</a> traits for bit field Zserio types (int:5, bit:5, etc...). </p>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00489">489</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00130">130</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a47e885d0a2c8560abc88fb4bf76ca8c3"></a>
+<a class="anchor" id="add2a251d6c61b0f2553bcda2c5893ce4"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef T <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::<a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a></td>
+          <td class="memname">using <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::<a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a> =  T</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Type of the single array element. </p>
+<p>Element type. </p>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00493">493</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00134">134</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
@@ -183,51 +183,11 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00500">500</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00141">141</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a3edd05d14e05cd5e1916268096e61a97"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::bitSizeOf </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a>&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Calculates bit size of the array element.</p>
-<dl class="section return"><dt>Returns</dt><dd>Bit size of the array element. </dd></dl>
-
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00509">509</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a8690ed687ee4f7f5b2411f6e77b7fff9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -253,11 +213,51 @@ template&lt;typename T &gt; </div>
 <p>Calculates bit size of the array element.</p>
 <dl class="section return"><dt>Returns</dt><dd>Bit size of the array element. </dd></dl>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00519">519</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00150">150</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0bd134f503b9bdc3561cfae48b06a3ba"></a>
+<a class="anchor" id="a6e8e84fc1f18797ab618d86b67e69e41"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::bitSizeOf </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Calculates bit size of the array element.</p>
+<dl class="section return"><dt>Returns</dt><dd>Bit size of the array element. </dd></dl>
+
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00160">160</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae63ee2be2db59947ff1f4d4200a1ab81"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -275,7 +275,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -299,11 +299,11 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Updated bit position which points to the first bit after the array element. </dd></dl>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00531">531</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00172">172</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3e49f0cde704f92d8937380907cad4ce"></a>
+<a class="anchor" id="a4dfbb85dd79640d604177c55cc8dd57a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -313,27 +313,11 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::read </td>
+          <td class="memname"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a> <a class="el" href="classzserio_1_1BitFieldArrayTraits.html">zserio::BitFieldArrayTraits</a>&lt; T &gt;::read </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>array</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="classzserio_1_1BitStreamReader.html">BitStreamReader</a> &amp;&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -345,17 +329,17 @@ template&lt;typename T &gt; </div>
 <p>Reads the single array element.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">array</td><td>Array to read the element to. </td></tr>
-    <tr><td class="paramname">in</td><td>Bit stream reader. </td></tr>
+    <tr><td class="paramname">in</td><td>Bit stream reader.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Read element. </dd></dl>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00542">542</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00184">184</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6549253834b2f767241e3af17a535530"></a>
+<a class="anchor" id="a043d17dd69e8da16e76be50f99b8578f"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -373,8 +357,8 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">type</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">ElementType</a>&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -392,12 +376,12 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">out</td><td>Bit stream writer to use. </td></tr>
-    <tr><td class="paramname">value</td><td>Element's value to write. </td></tr>
+    <tr><td class="paramname">element</td><td>Element to write. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00553">553</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00195">195</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
@@ -423,12 +407,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Determines whether the bit size of the single element is constant. </p>
 
-<p>Definition at line <a class="el" href="Arrays_8h_source.html#l00559">559</a> of file <a class="el" href="Arrays_8h_source.html">Arrays.h</a>.</p>
+<p>Definition at line <a class="el" href="ArrayTraits_8h_source.html#l00201">201</a> of file <a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/jenkins/workspace/NDS/Zserio/NDS_ZSERIO-linux-build/compiler/extensions/cpp/runtime/src/zserio/<a class="el" href="Arrays_8h_source.html">Arrays.h</a></li>
+<li>/home/jenkins/workspace/NDS/Zserio/NDS_ZSERIO-linux-build/compiler/extensions/cpp/runtime/src/zserio/<a class="el" href="ArrayTraits_8h_source.html">ArrayTraits.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

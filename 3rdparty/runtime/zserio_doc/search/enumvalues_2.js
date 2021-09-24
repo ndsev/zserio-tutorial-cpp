@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['internal_5fconnection',['INTERNAL_CONNECTION',['../classzserio_1_1SqliteConnection.html#a0e86953645a641eea026f8b5df99d24ba7b6bffcedbba5b6844b44e326e03ed4e',1,'zserio::SqliteConnection']]]
+  ['column_5fmissing',['COLUMN_MISSING',['../classzserio_1_1IValidationObserver.html#aa76c80e84231f2efe921678ad50137e9a9c051c57e410ccfce390e2fc76c4821f',1,'zserio::IValidationObserver']]],
+  ['column_5fsuperfluous',['COLUMN_SUPERFLUOUS',['../classzserio_1_1IValidationObserver.html#aa76c80e84231f2efe921678ad50137e9abdd846ce0e393c88d120f3a03895b771',1,'zserio::IValidationObserver']]]
 ];

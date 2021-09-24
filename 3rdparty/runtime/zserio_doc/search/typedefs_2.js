@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inplaceoptionalholder',['InPlaceOptionalHolder',['../namespacezserio.html#a0b9a28472f0cea64028da49b1c64ec89',1,'zserio']]]
+  ['children',['Children',['../classzserio_1_1BasicPackingContextNode.html#a640af377b923e81ebe41dad32ad1a3fd',1,'zserio::BasicPackingContextNode']]]
 ];

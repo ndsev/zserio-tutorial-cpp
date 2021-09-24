@@ -1,17 +1,18 @@
 var searchData=
 [
-  ['serviceexception',['ServiceException',['../classzserio_1_1ServiceException.html',1,'zserio']]],
-  ['serviceexception',['ServiceException',['../classzserio_1_1ServiceException.html#aa38f16867cf849c7b1a7bf309c0a483a',1,'zserio::ServiceException']]],
-  ['set',['set',['../classzserio_1_1AnyHolder.html#a4227b0c588d1bc05aa2a46c492fcf227',1,'zserio::AnyHolder']]],
-  ['setbitposition',['setBitPosition',['../classzserio_1_1BitStreamReader.html#aa40381d1c9d46ad2e1f957cf93151082',1,'zserio::BitStreamReader::setBitPosition()'],['../classzserio_1_1BitStreamWriter.html#aeca42f9095637f478cbc8786380d3b5c',1,'zserio::BitStreamWriter::setBitPosition()']]],
-  ['sqliteconnection',['SqliteConnection',['../classzserio_1_1SqliteConnection.html',1,'zserio']]],
-  ['sqliteconnection',['SqliteConnection',['../classzserio_1_1SqliteConnection.html#a5f3a3c806850a04410db1af8edc00897',1,'zserio::SqliteConnection::SqliteConnection(sqlite3 *connection=NULL, ConnectionType connectionType=INTERNAL_CONNECTION)'],['../classzserio_1_1SqliteConnection.html#a65f27bd52fdfd8dd4fa6f90b5cd82345',1,'zserio::SqliteConnection::SqliteConnection(const SqliteConnection &amp;)=delete'],['../classzserio_1_1SqliteConnection.html#a1fa8290998214ed136b956eb1fbe084d',1,'zserio::SqliteConnection::SqliteConnection(SqliteConnection &amp;&amp;)=delete']]],
-  ['sqliteexception',['SqliteException',['../classzserio_1_1SqliteException.html#a6d289df7986bbdf5ff92ba0b1dd74bae',1,'zserio::SqliteException::SqliteException(const std::string &amp;message)'],['../classzserio_1_1SqliteException.html#aa417615e4129431ff491c789e4486a05',1,'zserio::SqliteException::SqliteException(const std::string &amp;message, int sqliteCode)']]],
-  ['sqliteexception',['SqliteException',['../classzserio_1_1SqliteException.html',1,'zserio']]],
-  ['sqlitefinalizer',['SqliteFinalizer',['../structzserio_1_1SqliteFinalizer.html',1,'zserio']]],
-  ['starttransaction',['startTransaction',['../classzserio_1_1SqliteConnection.html#accdf8298f8d5d945d4edab7b043602cc',1,'zserio::SqliteConnection']]],
-  ['stdintarraytraits',['StdIntArrayTraits',['../structzserio_1_1StdIntArrayTraits.html',1,'zserio']]],
-  ['stringarraytraits',['StringArrayTraits',['../structzserio_1_1StringArrayTraits.html',1,'zserio']]],
-  ['subscribe',['subscribe',['../classzserio_1_1IPubsub.html#adfb3ac2dfaf8f83580f27867831d48b3',1,'zserio::IPubsub']]],
-  ['subscriptionid',['SubscriptionId',['../classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27',1,'zserio::IPubsub']]]
+  ['packedarraytraits',['PackedArrayTraits',['../classzserio_1_1PackedArrayTraits.html',1,'zserio']]],
+  ['packedarraytraits',['PackedArrayTraits',['../classzserio_1_1PackedArrayTraits.html#a31d3c4708a70b4f7d6e9de15c91f50c7',1,'zserio::PackedArrayTraits::PackedArrayTraits()'],['../classzserio_1_1PackedArrayTraits_3_01EnumArrayTraits_3_01T_01_4_01_4.html#a2c0c4396b4256bbcfc1153cff9d76137',1,'zserio::PackedArrayTraits&lt; EnumArrayTraits&lt; T &gt; &gt;::PackedArrayTraits()'],['../classzserio_1_1PackedArrayTraits_3_01BitmaskArrayTraits_3_01T_01_4_01_4.html#aabe52700a26422550acd6cb8a0d75d52',1,'zserio::PackedArrayTraits&lt; BitmaskArrayTraits&lt; T &gt; &gt;::PackedArrayTraits()'],['../classzserio_1_1PackedArrayTraits_3_01ObjectArrayTraits_3_01T_00_01ELEMENT__FACTORY_01_4_01_4.html#a53c75c12a50ff661e8cfc858e2510910',1,'zserio::PackedArrayTraits&lt; ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt; &gt;::PackedArrayTraits()']]],
+  ['packedarraytraits_3c_20bitmaskarraytraits_3c_20t_20_3e_20_3e',['PackedArrayTraits&lt; BitmaskArrayTraits&lt; T &gt; &gt;',['../classzserio_1_1PackedArrayTraits_3_01BitmaskArrayTraits_3_01T_01_4_01_4.html',1,'zserio']]],
+  ['packedarraytraits_3c_20enumarraytraits_3c_20t_20_3e_20_3e',['PackedArrayTraits&lt; EnumArrayTraits&lt; T &gt; &gt;',['../classzserio_1_1PackedArrayTraits_3_01EnumArrayTraits_3_01T_01_4_01_4.html',1,'zserio']]],
+  ['packedarraytraits_3c_20objectarraytraits_3c_20t_2c_20element_5ffactory_20_3e_20_3e',['PackedArrayTraits&lt; ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt; &gt;',['../classzserio_1_1PackedArrayTraits_3_01ObjectArrayTraits_3_01T_00_01ELEMENT__FACTORY_01_4_01_4.html',1,'zserio']]],
+  ['polymorphicallocator',['PolymorphicAllocator',['../classzserio_1_1pmr_1_1PolymorphicAllocator.html',1,'zserio::pmr']]],
+  ['pre_5fwrite_5finitialize_5fchildren',['PRE_WRITE_INITIALIZE_CHILDREN',['../namespacezserio.html#a1f5f04f451180c18760681ab57dc1890a0551d229fb835fea4982db512390a06c',1,'zserio']]],
+  ['pre_5fwrite_5finitialize_5foffsets',['PRE_WRITE_INITIALIZE_OFFSETS',['../namespacezserio.html#a1f5f04f451180c18760681ab57dc1890ae65758a46751a510315d7a1e615f2ea8',1,'zserio']]],
+  ['preparestatement',['prepareStatement',['../classzserio_1_1SqliteConnection.html#af16b15cf65a453d46a3da70803781479',1,'zserio::SqliteConnection::prepareStatement(const char *query)'],['../classzserio_1_1SqliteConnection.html#aa9e966cae14579571515b58587c10b26',1,'zserio::SqliteConnection::prepareStatement(const zserio::string&lt; ALLOC &gt; &amp;query)']]],
+  ['prewriteaction',['PreWriteAction',['../namespacezserio.html#a1f5f04f451180c18760681ab57dc1890',1,'zserio']]],
+  ['propagateallocator',['PropagateAllocator',['../namespacezserio.html#a44f69be65008415a101279aa20b6a19f',1,'zserio']]],
+  ['propagateallocatort',['PropagateAllocatorT',['../structzserio_1_1PropagateAllocatorT.html',1,'zserio']]],
+  ['propagatingpolymorphicallocator',['PropagatingPolymorphicAllocator',['../classzserio_1_1pmr_1_1PropagatingPolymorphicAllocator.html',1,'zserio::pmr']]],
+  ['publish',['publish',['../classzserio_1_1IPubsub.html#a8c66af62d099adc452bd6ef180d62479',1,'zserio::IPubsub']]],
+  ['pubsubexception',['PubsubException',['../classzserio_1_1PubsubException.html',1,'zserio']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['connectiontype',['ConnectionType',['../classzserio_1_1SqliteConnection.html#a0e86953645a641eea026f8b5df99d24b',1,'zserio::SqliteConnection']]]
+  ['arraytype',['ArrayType',['../namespacezserio.html#abf1b8023993fc6eb1de428b56a867b8f',1,'zserio']]]
 ];

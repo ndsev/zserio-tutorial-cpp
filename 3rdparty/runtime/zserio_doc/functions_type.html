@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -79,6 +79,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
     </ul>
   </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_a"><span>a</span></a></li>
+      <li><a href="#index_b"><span>b</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li class="current"><a href="#index_s"><span>s</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -95,39 +105,76 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>allocator_type
+: <a class="el" href="classzserio_1_1Array.html#a9c192113d44c1ca1db1751dc081a97cc">zserio::Array&lt; RAW_ARRAY, ARRAY_TRAITS, ARRAY_TYPE, OFFSET_CHECKER, OFFSET_INITIALIZER &gt;</a>
+, <a class="el" href="structzserio_1_1BasicBitBufferArrayTraits.html#a36f811b53ea5e32d9911c7ed380a1388">zserio::BasicBitBufferArrayTraits&lt; ALLOC &gt;</a>
+, <a class="el" href="classzserio_1_1BasicPackingContextNode.html#a738a0482562ff993388db0066279a2c6">zserio::BasicPackingContextNode&lt; ALLOC &gt;</a>
+, <a class="el" href="structzserio_1_1BasicStringArrayTraits.html#a0f2708b137f8e5b3135db6c7185d0303">zserio::BasicStringArrayTraits&lt; ALLOC &gt;</a>
+</li>
+<li>ArrayTraits
+: <a class="el" href="classzserio_1_1Array.html#a0f24060947007986145edbbdb8bbe229">zserio::Array&lt; RAW_ARRAY, ARRAY_TRAITS, ARRAY_TYPE, OFFSET_CHECKER, OFFSET_INITIALIZER &gt;</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
 <li>BitPosType
 : <a class="el" href="classzserio_1_1BitStreamReader.html#a958beec975daad3585192fa48ff5856c">zserio::BitStreamReader</a>
 , <a class="el" href="classzserio_1_1BitStreamWriter.html#a9f38c25d8653e0cd948969bc88a8c685">zserio::BitStreamWriter</a>
 </li>
-<li>OnTopic
-: <a class="el" href="classzserio_1_1IPubsub.html#a21e7e535678fb52ae2d2e9a0388bbaed">zserio::IPubsub</a>
+</ul>
+
+
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>Children
+: <a class="el" href="classzserio_1_1BasicPackingContextNode.html#a640af377b923e81ebe41dad32ad1a3fd">zserio::BasicPackingContextNode&lt; ALLOC &gt;</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>ElementType
+: <a class="el" href="structzserio_1_1BasicBitBufferArrayTraits.html#a118eed51845c2330a0bbd0eb25fc271f">zserio::BasicBitBufferArrayTraits&lt; ALLOC &gt;</a>
+, <a class="el" href="structzserio_1_1BasicStringArrayTraits.html#a1ab634e301b4b707e36c0a0982e1d91b">zserio::BasicStringArrayTraits&lt; ALLOC &gt;</a>
+, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#add2a251d6c61b0f2553bcda2c5893ce4">zserio::BitFieldArrayTraits&lt; T &gt;</a>
+, <a class="el" href="structzserio_1_1BitmaskArrayTraits.html#a311c699d4ca74d0fdd0c83e9a9979815">zserio::BitmaskArrayTraits&lt; T &gt;</a>
+, <a class="el" href="structzserio_1_1BoolArrayTraits.html#abe197af7ed1e95162dcd0c6b036faec6">zserio::BoolArrayTraits</a>
+, <a class="el" href="structzserio_1_1EnumArrayTraits.html#ae8c28c7eb934ae149bde1b55521643ac">zserio::EnumArrayTraits&lt; T &gt;</a>
+, <a class="el" href="structzserio_1_1Float16ArrayTraits.html#ab03bebc708ec1cd637bb7bb9c58fddc3">zserio::Float16ArrayTraits</a>
+, <a class="el" href="structzserio_1_1Float32ArrayTraits.html#a925454c03ff100c502280a67f0236622">zserio::Float32ArrayTraits</a>
+, <a class="el" href="structzserio_1_1Float64ArrayTraits.html#a7157f34807bb8561e3a80c11b564f56e">zserio::Float64ArrayTraits</a>
+, <a class="el" href="classzserio_1_1ObjectArrayTraits.html#aa04066944f5d6a7f25a02aaa1e6a88a4">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a>
+, <a class="el" href="classzserio_1_1PackedArrayTraits.html#ae8b2b4671535fe65ca8657fae0fd1238">zserio::PackedArrayTraits&lt; ARRAY_TRAITS &gt;</a>
+, <a class="el" href="classzserio_1_1PackedArrayTraits_3_01BitmaskArrayTraits_3_01T_01_4_01_4.html#abaf54007b36583c9d3a1457c7650a7cb">zserio::PackedArrayTraits&lt; BitmaskArrayTraits&lt; T &gt; &gt;</a>
+, <a class="el" href="classzserio_1_1PackedArrayTraits_3_01EnumArrayTraits_3_01T_01_4_01_4.html#ae006a1cc277235b2ae5ee51b9b2125bd">zserio::PackedArrayTraits&lt; EnumArrayTraits&lt; T &gt; &gt;</a>
+, <a class="el" href="classzserio_1_1PackedArrayTraits_3_01ObjectArrayTraits_3_01T_00_01ELEMENT__FACTORY_01_4_01_4.html#a75e1e26e3aa0d30474c15270dda25acf">zserio::PackedArrayTraits&lt; ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt; &gt;</a>
+, <a class="el" href="structzserio_1_1StdIntArrayTraits.html#a80a0f8061f451238fbec399723f51b8f">zserio::StdIntArrayTraits&lt; T &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01int64__t_01_4.html#a8c168ab4b0088a4835ce339d227a1df4">zserio::VarIntArrayTraits&lt; int64_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01uint64__t_01_4.html#a86f94fc74e3089b3787b7b7ea292be44">zserio::VarIntArrayTraits&lt; uint64_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int16__t_01_4.html#a0f59af0fd8211e78bf177bd1080ff48b">zserio::VarIntNNArrayTraits&lt; int16_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int32__t_01_4.html#a377b7180582a6fc557ab8db0ec5210f4">zserio::VarIntNNArrayTraits&lt; int32_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int64__t_01_4.html#a47e116c2edf554a2627a63cb70e364a8">zserio::VarIntNNArrayTraits&lt; int64_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint16__t_01_4.html#adbab43b86e076e71dcb0a9f3c39f07dc">zserio::VarIntNNArrayTraits&lt; uint16_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint32__t_01_4.html#a3fa611cbf8160be35b3295a11bbbbf70">zserio::VarIntNNArrayTraits&lt; uint32_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint64__t_01_4.html#ae1b5e04a27de60e2cfeb83751366dbb0">zserio::VarIntNNArrayTraits&lt; uint64_t &gt;</a>
+, <a class="el" href="structzserio_1_1VarSizeArrayTraits.html#a6f39a16971b79300671347b3ad7bf3ef">zserio::VarSizeArrayTraits</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>RawArray
+: <a class="el" href="classzserio_1_1Array.html#a278bb1389146e79cdf6510a8b744a995">zserio::Array&lt; RAW_ARRAY, ARRAY_TRAITS, ARRAY_TYPE, OFFSET_CHECKER, OFFSET_INITIALIZER &gt;</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>SubscriptionId
 : <a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">zserio::IPubsub</a>
-</li>
-<li>type
-: <a class="el" href="structzserio_1_1BitBufferArrayTraits.html#ad43251c8d7f0ed6d25e5651359deeee7">zserio::BitBufferArrayTraits</a>
-, <a class="el" href="classzserio_1_1BitFieldArrayTraits.html#a47e885d0a2c8560abc88fb4bf76ca8c3">zserio::BitFieldArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1BitmaskArrayTraits.html#a9f76ce77f25af9d4174bf5a945b81f6f">zserio::BitmaskArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1BoolArrayTraits.html#a4b36736f179af77e012447516df0d36d">zserio::BoolArrayTraits</a>
-, <a class="el" href="structzserio_1_1EnumArrayTraits.html#a3a8db90879712d8e27f0ddaa781a4228">zserio::EnumArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1Float16ArrayTraits.html#a8f4c9a19494ec6ef0462ce5ef6fc0f7c">zserio::Float16ArrayTraits</a>
-, <a class="el" href="structzserio_1_1Float32ArrayTraits.html#aeb12354940435af023e0ee1d1eedf574">zserio::Float32ArrayTraits</a>
-, <a class="el" href="structzserio_1_1Float64ArrayTraits.html#a5b6e173fb78ed8077870bfee79f0ece7">zserio::Float64ArrayTraits</a>
-, <a class="el" href="classzserio_1_1ObjectArrayTraits.html#ae45fd28ab3cb12d0050d7905dc945912">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a>
-, <a class="el" href="classzserio_1_1ObjectArrayTraits_3_01T_01_4.html#a2e7deadf35780edfbaeeb2174cdc76ca">zserio::ObjectArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1StdIntArrayTraits.html#a29d859ce83f6502e3fe91a03f9d201c1">zserio::StdIntArrayTraits&lt; T &gt;</a>
-, <a class="el" href="structzserio_1_1StringArrayTraits.html#a8c12800b06ceafe9e8dc511e59a64b4c">zserio::StringArrayTraits</a>
-, <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01int64__t_01_4.html#a55a13dfc67b00daf69b7caa35184ee38">zserio::VarIntArrayTraits&lt; int64_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntArrayTraits_3_01uint64__t_01_4.html#a7a58d7397b3abd1cbf11bb6020587a4a">zserio::VarIntArrayTraits&lt; uint64_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int16__t_01_4.html#ae2c754c612d553053e4e7c47af2646e3">zserio::VarIntNNArrayTraits&lt; int16_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int32__t_01_4.html#a15d19c07571f965112b3ab5a1a9942cb">zserio::VarIntNNArrayTraits&lt; int32_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01int64__t_01_4.html#a06bb7a914f49d94c68da62cc548f9c35">zserio::VarIntNNArrayTraits&lt; int64_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint16__t_01_4.html#a08c28a35a25b3ff7a8cf94b8a1b5b27a">zserio::VarIntNNArrayTraits&lt; uint16_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint32__t_01_4.html#a2be0915793aa4b861ed7e0ad12cc7079">zserio::VarIntNNArrayTraits&lt; uint32_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarIntNNArrayTraits_3_01uint64__t_01_4.html#abe2826a26e21093b8174c1835ad745d8">zserio::VarIntNNArrayTraits&lt; uint64_t &gt;</a>
-, <a class="el" href="structzserio_1_1VarSizeArrayTraits.html#a502c9bd1a308044128e74665a2eb77b1">zserio::VarSizeArrayTraits</a>
 </li>
 </ul>
 </div><!-- contents -->

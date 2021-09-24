@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -115,10 +115,13 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1ef62c399cf3a821ce60c34235ac067d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a1ef62c399cf3a821ce60c34235ac067d">BitStreamReader</a> (const uint8_t *buffer, size_t bufferByteSize)</td></tr>
 <tr class="separator:a1ef62c399cf3a821ce60c34235ac067d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addbaab99ccd2fe005e45a77a7b645fa6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#addbaab99ccd2fe005e45a77a7b645fa6">BitStreamReader</a> (const <a class="el" href="classzserio_1_1BitBuffer.html">BitBuffer</a> &amp;bitBuffer)</td></tr>
-<tr class="separator:addbaab99ccd2fe005e45a77a7b645fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15ba5b13cc1867e57319e5f4e024e211"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a15ba5b13cc1867e57319e5f4e024e211">BitStreamReader</a> (const std::string &amp;filename)</td></tr>
-<tr class="separator:a15ba5b13cc1867e57319e5f4e024e211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebfa52881076d158fe8dec0bb763bd40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#aebfa52881076d158fe8dec0bb763bd40">BitStreamReader</a> (<a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt; buffer)</td></tr>
+<tr class="separator:aebfa52881076d158fe8dec0bb763bd40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4906d7b6542c409edab8952959e027c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a4906d7b6542c409edab8952959e027c7">BitStreamReader</a> (const uint8_t *buffer, size_t bufferBitSize, <a class="el" href="structzserio_1_1BitsTag.html">BitsTag</a>)</td></tr>
+<tr class="separator:a4906d7b6542c409edab8952959e027c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3975df3944631f43d5d3a6399d4003f3"><td class="memTemplParams" colspan="2">template&lt;typename ALLOC &gt; </td></tr>
+<tr class="memitem:a3975df3944631f43d5d3a6399d4003f3"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a3975df3944631f43d5d3a6399d4003f3">BitStreamReader</a> (const <a class="el" href="classzserio_1_1BasicBitBuffer.html">BasicBitBuffer</a>&lt; ALLOC &gt; &amp;bitBuffer)</td></tr>
+<tr class="separator:a3975df3944631f43d5d3a6399d4003f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0233fcd3bb157596b98d772bc23cafd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#ab0233fcd3bb157596b98d772bc23cafd">~BitStreamReader</a> ()</td></tr>
 <tr class="separator:ab0233fcd3bb157596b98d772bc23cafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35bace48baa09b1a9db4344377c1f0a5"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a35bace48baa09b1a9db4344377c1f0a5">readBits</a> (uint8_t numBits=32)</td></tr>
@@ -153,12 +156,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0ed0f25b930f72bae66008ca9e9c19a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d255911031e347d9126b6f62f5c562e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a3d255911031e347d9126b6f62f5c562e">readFloat64</a> ()</td></tr>
 <tr class="separator:a3d255911031e347d9126b6f62f5c562e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d22ada04f73118ac34c596598b429ca"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a9d22ada04f73118ac34c596598b429ca">readString</a> ()</td></tr>
-<tr class="separator:a9d22ada04f73118ac34c596598b429ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65b31c94df8b2ef2b960138096f47056"><td class="memTemplParams" colspan="2">template&lt;typename ALLOC  = std::allocator&lt;char&gt;&gt; </td></tr>
+<tr class="memitem:a65b31c94df8b2ef2b960138096f47056"><td class="memTemplItemLeft" align="right" valign="top">string&lt; RebindAlloc&lt; ALLOC, char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a65b31c94df8b2ef2b960138096f47056">readString</a> (const ALLOC &amp;alloc=ALLOC())</td></tr>
+<tr class="separator:a65b31c94df8b2ef2b960138096f47056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d04dbffe24ae37d08b241223f0ccb5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a2d04dbffe24ae37d08b241223f0ccb5e">readBool</a> ()</td></tr>
 <tr class="separator:a2d04dbffe24ae37d08b241223f0ccb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f8be43045748e074b8a703f1a381f6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classzserio_1_1BitBuffer.html">BitBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a0f8be43045748e074b8a703f1a381f6d">readBitBuffer</a> ()</td></tr>
-<tr class="separator:a0f8be43045748e074b8a703f1a381f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a073dacc2f1ff29751851505c4227b5"><td class="memTemplParams" colspan="2">template&lt;typename ALLOC  = std::allocator&lt;uint8_t&gt;&gt; </td></tr>
+<tr class="memitem:a3a073dacc2f1ff29751851505c4227b5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classzserio_1_1BasicBitBuffer.html">BasicBitBuffer</a>&lt; RebindAlloc&lt; ALLOC, uint8_t &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a3a073dacc2f1ff29751851505c4227b5">readBitBuffer</a> (const ALLOC &amp;allocator=ALLOC())</td></tr>
+<tr class="separator:a3a073dacc2f1ff29751851505c4227b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a959a590b4dd6188eeafa1e2a38bcf994"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classzserio_1_1BitStreamReader.html#a958beec975daad3585192fa48ff5856c">BitPosType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#a959a590b4dd6188eeafa1e2a38bcf994">getBitPosition</a> () const </td></tr>
 <tr class="separator:a959a590b4dd6188eeafa1e2a38bcf994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa40381d1c9d46ad2e1f957cf93151082"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1BitStreamReader.html#aa40381d1c9d46ad2e1f957cf93151082">setBitPosition</a> (<a class="el" href="classzserio_1_1BitStreamReader.html#a958beec975daad3585192fa48ff5856c">BitPosType</a> pos)</td></tr>
@@ -171,7 +176,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reader class which allows to read various data from the bit stream. </p>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00016">16</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00020">20</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a958beec975daad3585192fa48ff5856c"></a>
 <div class="memitem">
@@ -184,7 +189,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Type for bit position. </p>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00020">20</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00024">24</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
@@ -229,11 +234,11 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00364">364</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00330">330</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="addbaab99ccd2fe005e45a77a7b645fa6"></a>
+<a class="anchor" id="aebfa52881076d158fe8dec0bb763bd40"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -243,59 +248,111 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">zserio::BitStreamReader::BitStreamReader </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classzserio_1_1BitBuffer.html">BitBuffer</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor from buffer passed as a <a class="el" href="classzserio_1_1Span.html">Span</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>Buffer to read. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00334">334</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4906d7b6542c409edab8952959e027c7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">zserio::BitStreamReader::BitStreamReader </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>bufferBitSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structzserio_1_1BitsTag.html">BitsTag</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor from raw buffer with exact bit size.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>Pointer to buffer to read. </td></tr>
+    <tr><td class="paramname">bufferBitSize</td><td>Size of the buffer in bits. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00338">338</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3975df3944631f43d5d3a6399d4003f3"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ALLOC &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">zserio::BitStreamReader::BitStreamReader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classzserio_1_1BasicBitBuffer.html">BasicBitBuffer</a>&lt; ALLOC &gt; &amp;&#160;</td>
           <td class="paramname"><em>bitBuffer</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>Constructor from bit buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>Bit buffer to read from. </td></tr>
+    <tr><td class="paramname">bitBuffer</td><td>Bit buffer to read from. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00368">368</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a15ba5b13cc1867e57319e5f4e024e211"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">zserio::BitStreamReader::BitStreamReader </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Constructor from the file name.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>Filename of the binary file to read. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00372">372</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00100">100</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
@@ -313,7 +370,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00375">375</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00342">342</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -339,7 +396,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00788">788</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00711">711</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -366,7 +423,7 @@ Public Member Functions</h2></td></tr>
 <p>Gets current bit position.</p>
 <dl class="section return"><dt>Returns</dt><dd>Current bit position. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00253">253</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00297">297</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
@@ -393,26 +450,37 @@ Public Member Functions</h2></td></tr>
 <p>Gets size of the underlying buffer in bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Buffer bit size. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00274">274</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00318">318</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0f8be43045748e074b8a703f1a381f6d"></a>
+<a class="anchor" id="a3a073dacc2f1ff29751851505c4227b5"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename ALLOC  = std::allocator&lt;uint8_t&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classzserio_1_1BitBuffer.html">BitBuffer</a> zserio::BitStreamReader::readBitBuffer </td>
+          <td class="memname"><a class="el" href="classzserio_1_1BasicBitBuffer.html">BasicBitBuffer</a>&lt;RebindAlloc&lt;ALLOC, uint8_t&gt; &gt; zserio::BitStreamReader::readBitBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const ALLOC &amp;&#160;</td>
+          <td class="paramname"><em>allocator</em> = <code>ALLOC()</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Reads a bit buffer.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read bit buffer. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00744">744</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00260">260</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
@@ -438,7 +506,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read bits. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00378">378</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00345">345</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -464,7 +532,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read bits. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00385">385</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00352">352</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -483,7 +551,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads bool as a single bit.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read bool value. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00739">739</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00694">694</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -502,7 +570,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads 16-bit float.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read float16. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00702">702</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00669">669</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -521,7 +589,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads 32-bit float.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read float32. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00709">709</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00676">676</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -540,7 +608,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads 64-bit float double).</p>
 <dl class="section return"><dt>Returns</dt><dd>Read float64. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00716">716</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00683">683</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -566,7 +634,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read bits. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00423">423</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00390">390</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -592,26 +660,37 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read bits. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00399">399</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00366">366</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9d22ada04f73118ac34c596598b429ca"></a>
+<a class="anchor" id="a65b31c94df8b2ef2b960138096f47056"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename ALLOC  = std::allocator&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string zserio::BitStreamReader::readString </td>
+          <td class="memname">string&lt;RebindAlloc&lt;ALLOC, char&gt; &gt; zserio::BitStreamReader::readString </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const ALLOC &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em> = <code>ALLOC()</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Reads an UTF-8 string.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read string. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00727">727</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8h_source.html#l00235">235</a> of file <a class="el" href="BitStreamReader_8h_source.html">BitStreamReader.h</a>.</p>
 
 </div>
 </div>
@@ -630,7 +709,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads signed variable integer up to 72 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varint. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00579">579</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00546">546</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -649,7 +728,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads signed variable integer up to 16 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varint16. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00494">494</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00461">461</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -668,7 +747,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads signed variable integer up to 32 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varint32. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00472">472</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00439">439</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -687,7 +766,7 @@ Public Member Functions</h2></td></tr>
 <p>Reads signed variable integer up to 64 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varint64. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00430">430</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00397">397</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -706,7 +785,7 @@ Public Member Functions</h2></td></tr>
 <p>Read variable size integer up to 40 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varsize. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00672">672</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00639">639</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -725,7 +804,7 @@ Public Member Functions</h2></td></tr>
 <p>Read unsigned variable integer up to 72 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varuint. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00626">626</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00593">593</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -744,7 +823,7 @@ Public Member Functions</h2></td></tr>
 <p>Read unsigned variable integer up to 16 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varuint16. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00568">568</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00535">535</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -763,7 +842,7 @@ Public Member Functions</h2></td></tr>
 <p>Read unsigned variable integer up to 32 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varuint32. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00547">547</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00514">514</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -782,7 +861,7 @@ Public Member Functions</h2></td></tr>
 <p>Read unsigned variable integer up to 64 bits.</p>
 <dl class="section return"><dt>Returns</dt><dd>Read varuint64. </dd></dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00506">506</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00473">473</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -807,7 +886,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00776">776</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="BitStreamReader_8cpp_source.html#l00699">699</a> of file <a class="el" href="BitStreamReader_8cpp_source.html">BitStreamReader.cpp</a>.</p>
 
 </div>
 </div>

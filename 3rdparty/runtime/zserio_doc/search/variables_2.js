@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hasinternalbuffer',['hasInternalBuffer',['../structzserio_1_1BitStreamReader_1_1ReaderContext.html#aabd184fb5877bbd3c9a3206be8493382',1,'zserio::BitStreamReader::ReaderContext']]]
+  ['dynamic_5fextent',['dynamic_extent',['../namespacezserio.html#ad95672c11b9aa9116e1f3113585cd7ad',1,'zserio']]]
 ];

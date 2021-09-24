@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['no_5fpre_5fwrite_5faction',['NO_PRE_WRITE_ACTION',['../namespacezserio.html#a1f5f04f451180c18760681ab57dc1890a6619b33a13f086d11501a6f0641eeed4',1,'zserio']]]
+  ['external_5fconnection',['EXTERNAL_CONNECTION',['../classzserio_1_1SqliteConnection.html#a0e86953645a641eea026f8b5df99d24ba0ebb8f75d49a6151dc61f1ec83c92ddb',1,'zserio::SqliteConnection']]]
 ];

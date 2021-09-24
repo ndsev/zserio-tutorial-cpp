@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -105,8 +105,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a52299444ba82371cbf16be660c0f5dd8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1ISqliteDatabaseReader.html#a52299444ba82371cbf16be660c0f5dd8">~ISqliteDatabaseReader</a> ()</td></tr>
 <tr class="separator:a52299444ba82371cbf16be660c0f5dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a671b8e87eba58b78fdf223a57fe77384"><td class="memItemLeft" align="right" valign="top">virtual sqlite3 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1ISqliteDatabaseReader.html#a671b8e87eba58b78fdf223a57fe77384">connection</a> ()=0</td></tr>
-<tr class="separator:a671b8e87eba58b78fdf223a57fe77384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a508432e95872831f7ce9a64807d204fc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classzserio_1_1SqliteConnection.html">SqliteConnection</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1ISqliteDatabaseReader.html#a508432e95872831f7ce9a64807d204fc">connection</a> () noexcept=0</td></tr>
+<tr class="separator:a508432e95872831f7ce9a64807d204fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generic interface for SQLite database. </p>
@@ -140,7 +140,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a671b8e87eba58b78fdf223a57fe77384"></a>
+<a class="anchor" id="a508432e95872831f7ce9a64807d204fc"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -148,7 +148,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual sqlite3* zserio::ISqliteDatabaseReader::connection </td>
+          <td class="memname">virtual <a class="el" href="classzserio_1_1SqliteConnection.html">SqliteConnection</a>&amp; zserio::ISqliteDatabaseReader::connection </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -156,12 +156,12 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>Returns current database connection.</p>
-<dl class="section return"><dt>Returns</dt><dd>SQLite database connection or NULL if the database is not open. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>SQLite database connection. </dd></dl>
 
 </div>
 </div>

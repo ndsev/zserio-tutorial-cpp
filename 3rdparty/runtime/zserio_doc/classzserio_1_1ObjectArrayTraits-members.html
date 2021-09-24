@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -96,9 +96,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#a7788b7e4c2d1f6a9f0ccc9a4e18206c5">ObjectArrayTraits</a>(const ELEMENT_FACTORY &amp;elementFactory)</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#a448046eeee7d33ba91682173954e7b19">read</a>(std::vector&lt; type &gt; &amp;array, BitStreamReader &amp;in, size_t index) const </td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#ae45fd28ab3cb12d0050d7905dc945912">type</a> typedef</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#aabfef2d5018d1d1dbf20009f047e0e9d">bitSizeOf</a>(size_t bitPosition, const ElementType &amp;element)</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#aa04066944f5d6a7f25a02aaa1e6a88a4">ElementType</a> typedef</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#acf3ca8b7d7a3e37183d0c082a98268f1">initializeOffsets</a>(size_t bitPosition, ElementType &amp;element)</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#a3c6cc7ab07dbe56c6323650ceba1fa94">IS_BITSIZEOF_CONSTANT</a></td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#afadd6d0fe7aa89b2fd81337fcd7f21be">read</a>(const ELEMENT_FACTORY &amp;elementFactory, RAW_ARRAY &amp;rawArray, BitStreamReader &amp;in, size_t index)</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html#a69440e8c260298eb5b31305fdec71e35">write</a>(BitStreamWriter &amp;out, ElementType &amp;element)</td><td class="entry"><a class="el" href="classzserio_1_1ObjectArrayTraits.html">zserio::ObjectArrayTraits&lt; T, ELEMENT_FACTORY &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

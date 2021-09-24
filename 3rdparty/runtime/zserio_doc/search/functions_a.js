@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['preparestatement',['prepareStatement',['../classzserio_1_1SqliteConnection.html#ad326ba9a2c72ae9b1c63796980f69353',1,'zserio::SqliteConnection']]],
-  ['publish',['publish',['../classzserio_1_1IPubsub.html#a0d7d0bba44c680b787ddcf9fc02bfa73',1,'zserio::IPubsub']]],
-  ['pubsubexception',['PubsubException',['../classzserio_1_1PubsubException.html#a03c8b69f75941873f0707721306d31b4',1,'zserio::PubsubException']]]
+  ['makestringview',['makeStringView',['../namespacezserio.html#ab2508c7808e66afb0623c9749e09a694',1,'zserio']]],
+  ['max_5fsize',['max_size',['../classzserio_1_1BasicStringView.html#a1bf0371d7a25b90921b6c2fb79a37915',1,'zserio::BasicStringView']]]
 ];

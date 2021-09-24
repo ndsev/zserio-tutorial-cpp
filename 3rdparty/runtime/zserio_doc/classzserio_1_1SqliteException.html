@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -99,24 +99,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>&gt;</code></p>
 
-<p>Inherits <a class="el" href="classzserio_1_1CppRuntimeException.html">zserio::CppRuntimeException</a>.</p>
+<p>Inherits zserio::detail::CppRuntimeExceptionHelper&lt; SqliteException &gt;.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d289df7986bbdf5ff92ba0b1dd74bae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1SqliteException.html#a6d289df7986bbdf5ff92ba0b1dd74bae">SqliteException</a> (const std::string &amp;message)</td></tr>
-<tr class="separator:a6d289df7986bbdf5ff92ba0b1dd74bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa417615e4129431ff491c789e4486a05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1SqliteException.html#aa417615e4129431ff491c789e4486a05">SqliteException</a> (const std::string &amp;message, int sqliteCode)</td></tr>
-<tr class="separator:aa417615e4129431ff491c789e4486a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classzserio_1_1CppRuntimeException"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classzserio_1_1CppRuntimeException')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classzserio_1_1CppRuntimeException.html">zserio::CppRuntimeException</a></td></tr>
-<tr class="memitem:a44b22e21b3c37682fcd473760fff1118 inherit pub_methods_classzserio_1_1CppRuntimeException"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1CppRuntimeException.html#a44b22e21b3c37682fcd473760fff1118">CppRuntimeException</a> (const std::string &amp;message)</td></tr>
-<tr class="separator:a44b22e21b3c37682fcd473760fff1118 inherit pub_methods_classzserio_1_1CppRuntimeException"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a659683293393477217a4edb9c52a0d46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classzserio_1_1SqliteException.html">SqliteException</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1SqliteException.html#a659683293393477217a4edb9c52a0d46">operator+</a> (<a class="el" href="classzserio_1_1SqliteErrorCode.html">SqliteErrorCode</a> code)</td></tr>
+<tr class="separator:a659683293393477217a4edb9c52a0d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Exception thrown when an error in an SQLite operation occurs. </p>
 
-<p>Definition at line <a class="el" href="SqliteException_8h_source.html#l00013">13</a> of file <a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a6d289df7986bbdf5ff92ba0b1dd74bae"></a>
+<p>Definition at line <a class="el" href="SqliteException_8h_source.html#l00039">39</a> of file <a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a659683293393477217a4edb9c52a0d46"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -124,54 +119,11 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">zserio::SqliteException::SqliteException </td>
+          <td class="memname"><a class="el" href="classzserio_1_1SqliteException.html">SqliteException</a>&amp; zserio::SqliteException::operator+ </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1SqliteErrorCode.html">SqliteErrorCode</a>&#160;</td>
+          <td class="paramname"><em>code</em></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Constructor.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">message</td><td>Description of the SQLite error. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="SqliteException_8h_source.html#l00021">21</a> of file <a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa417615e4129431ff491c789e4486a05"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">zserio::SqliteException::SqliteException </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>sqliteCode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -180,16 +132,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructor.</p>
+<p>Appends SQLite error string appropriate for given sqlite error code.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td>Description of the SQLite error. </td></tr>
-    <tr><td class="paramname">sqliteCode</td><td>Concrete SQLite error code. </td></tr>
+    <tr><td class="paramname">code</td><td>SQLite error code to append the error string for. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="SqliteException_8h_source.html#l00029">29</a> of file <a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>.</p>
+<p>Definition at line <a class="el" href="SqliteException_8h_source.html#l00050">50</a> of file <a class="el" href="SqliteException_8h_source.html">SqliteException.h</a>.</p>
 
 </div>
 </div>

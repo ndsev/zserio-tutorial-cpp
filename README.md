@@ -47,6 +47,7 @@ So our folder structure looks like this:
 ├───3rdparty
 │   └───runtime
 │       └───zserio
+│       └───zserio_doc
 └───src
 ```
 
@@ -198,6 +199,7 @@ So after generating the code our folder structure looks like this:
 ├───3rdparty
 │   └───runtime
 │       └───zserio
+│       └───zserio_doc
 └───src
     └───tutorial
 ```
@@ -230,7 +232,12 @@ Then open up your favorite IDE and start using the zserio classes by including t
 that we want to use.
 
 ```cpp
-#include <tutorial/Employee.h>
+#include <zserio/BitStreamReader.h>
+#include <zserio/BitStreamWriter.h>
+#include <zserio/BitBuffer.h>
+#include <zserio/FileUtil.h>
+#include <zserio/Enums.h>
+#include "tutorial/Employee.h"
 ```
 
 Let's declare an employee Joe and fill in some data:
@@ -278,21 +285,24 @@ joe.setSkills(skills);
 After we have set all the fields, we have to declare a BitStreamWriter and write the stream:
 
 ```cpp
-zserio::BitStreamWriter writer;
+zserio::BitBuffer bitBuffer(joe.bitSizeOf());
+zserio::BitStreamWriter writer(bitBuffer);
 joe.write(writer);
 ```
+
+`bitSizeOf()` method in zserio returns the actual bit size needed for serialization of the structures.
 
 You may now write the stream to the disk using:
 
 ```cpp
-writer.writeBufferToFile("employee.zsb");
+zserio::writeBufferToFile(writer, "employee.zsb");
 ```
 
 You might as well access the BitstreamWriter's buffer by:
 
 ```cpp
-size_t size;
-const uint8_t* buffer = writer.getWriteBuffer(size);
+const uint8_t* buffer = writer.getWriteBuffer();
+const size_t bufferBitSize = writer.getBufferBitSize();
 ```
 
 You could also use the buffer for any other purpose like sending it over rpc or use it internally.
@@ -319,18 +329,19 @@ boss.setBonus(10000);
 
 The rest is pretty similar. Check the code to see the rest.
 
-When deserializing the zserio bit stream, we start with reading the file using BitStreamReader declaration:
+When deserializing the zserio bit stream, we start with reading the file to BitBuffer together with
+BitStreamReader construction:
 
 ```cpp
-zserio::BitStreamReader reader("employee.zsb");
+const zserio::BitBuffer bitBuffer = zserio::readBufferFromFile(employee.zsb);
+zserio::BitStreamReader reader(bitBuffer);
 ```
 
 We declare an object of class Employee and deserialize the buffer with the help of the BitStreamReader we just
 created. After this call all the fields within `employee` will be set.
 
 ```cpp
-tutorial::Employee employee;
-employee.read(reader);
+tutorial::Employee employee(reader);
 ```
 
 We can now access the filled employee object via the respective getters. We still need to check for optionals
@@ -359,9 +370,10 @@ There are some other features that we used in the code in this repo that we woul
 
 ### Zserio runtime exceptions
 
-The zserio runtime throws three exceptions. The `zserio::CppRuntimeException`, the `zserio::BitStreamException`
-and the `zserio::ConstraintException`. The last two exceptions are specialization of
-`zserio::CppRuntimeException` only, so basically it is enough to catch the runtime exception for most scenarios.
+The zserio runtime throws three exceptions. The `zserio::CppRuntimeException`,
+the `zserio::BitStreamException` and the `zserio::ConstraintException`. The last two exceptions are
+specialization of `zserio::CppRuntimeException` only, so basically it is enough to catch the runtime
+exception for most scenarios.
 
 It makes sense to try-catch all of your writes and reads as we do in our tutorial:
 
@@ -409,10 +421,7 @@ const std::string languageString = language.toString();
 Of course checking for the value has better runtime performance once you do comparisons. But for debug purposes
 or similar this might come handy sometimes.
 
-The other feature is that you can always retrieve the actual bit size of the structures in zserio by calling
-`bitSizeOf()`.
-
-In the tutorial we use it for plain informational purpose only.
+In the tutorial we use `bitSizeOf()` method as well for plain informational purpose:
 
 ```cpp
 std::cout << "Bit size of employee: " << employee.bitSizeOf() << std::endl;

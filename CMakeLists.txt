@@ -38,7 +38,7 @@ if (REGENERATE_CPP_SOURCES)
                 "${LATEST_RELEASE_JSON_FULL_NAME}"
                 "zserio latest release json")
         file(READ "${LATEST_RELEASE_JSON_FULL_NAME}" LATEST_RELEASE_JSON)
-        string(REGEX MATCH "\"tag_name\": \"v([0-9\.]+)\"" REGEX_RESULT ${LATEST_RELEASE_JSON})
+        string(REGEX MATCH "\"tag_name\": \"v([0-9.]+)\"" REGEX_RESULT ${LATEST_RELEASE_JSON})
         set(${OUTPUT_VERSION_VAR_NAME} "${CMAKE_MATCH_1}" PARENT_SCOPE)
     endfunction()
 

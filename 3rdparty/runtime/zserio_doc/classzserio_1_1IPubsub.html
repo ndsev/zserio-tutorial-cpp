@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -90,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classzserio_1_1IPubsub-members.html">List of all members</a>  </div>
@@ -100,19 +101,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="IPubsub_8h_source.html">IPubsub.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub_1_1OnTopicCallback.html">OnTopicCallback</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a98b9eea3270b57fc7c3279b4f75bcb27"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">SubscriptionId</a> = size_t</td></tr>
 <tr class="separator:a98b9eea3270b57fc7c3279b4f75bcb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e7e535678fb52ae2d2e9a0388bbaed"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a21e7e535678fb52ae2d2e9a0388bbaed">OnTopic</a> = std::function&lt; void(const std::string &amp;topic, const std::vector&lt; uint8_t &gt; &amp;data)&gt;</td></tr>
-<tr class="separator:a21e7e535678fb52ae2d2e9a0388bbaed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0d7d0bba44c680b787ddcf9fc02bfa73"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a0d7d0bba44c680b787ddcf9fc02bfa73">publish</a> (const std::string &amp;topic, const std::vector&lt; uint8_t &gt; &amp;data, void *context)=0</td></tr>
-<tr class="separator:a0d7d0bba44c680b787ddcf9fc02bfa73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb3ac2dfaf8f83580f27867831d48b3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">SubscriptionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#adfb3ac2dfaf8f83580f27867831d48b3">subscribe</a> (const std::string &amp;topic, const <a class="el" href="classzserio_1_1IPubsub.html#a21e7e535678fb52ae2d2e9a0388bbaed">OnTopic</a> &amp;callback, void *context)=0</td></tr>
-<tr class="separator:adfb3ac2dfaf8f83580f27867831d48b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c66af62d099adc452bd6ef180d62479"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a8c66af62d099adc452bd6ef180d62479">publish</a> (<a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a> topic, <a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt; data, void *context)=0</td></tr>
+<tr class="separator:a8c66af62d099adc452bd6ef180d62479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6184875e6e4311bfaae7838dddf2e582"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">SubscriptionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a6184875e6e4311bfaae7838dddf2e582">subscribe</a> (<a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a> topic, const std::shared_ptr&lt; <a class="el" href="classzserio_1_1IPubsub_1_1OnTopicCallback.html">OnTopicCallback</a> &gt; &amp;callback, void *context)=0</td></tr>
+<tr class="separator:a6184875e6e4311bfaae7838dddf2e582"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7989ac82afbdfd9f8a0aad4cbc4b8dae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IPubsub.html#a7989ac82afbdfd9f8a0aad4cbc4b8dae">unsubscribe</a> (<a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">SubscriptionId</a> id)=0</td></tr>
 <tr class="separator:a7989ac82afbdfd9f8a0aad4cbc4b8dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -121,21 +125,6 @@ Public Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="IPubsub_8h_source.html#l00013">13</a> of file <a class="el" href="IPubsub_8h_source.html">IPubsub.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a21e7e535678fb52ae2d2e9a0388bbaed"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classzserio_1_1IPubsub.html#a21e7e535678fb52ae2d2e9a0388bbaed">zserio::IPubsub::OnTopic</a> =  std::function&lt;void(const std::string&amp; topic, const std::vector&lt;uint8_t&gt;&amp; data)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>OnTopic callback which invoked for subscribed messages. </p>
-
-<p>Definition at line <a class="el" href="IPubsub_8h_source.html#l00026">26</a> of file <a class="el" href="IPubsub_8h_source.html">IPubsub.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a98b9eea3270b57fc7c3279b4f75bcb27"></a>
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +141,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0d7d0bba44c680b787ddcf9fc02bfa73"></a>
+<a class="anchor" id="a8c66af62d099adc452bd6ef180d62479"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -162,13 +151,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void zserio::IPubsub::publish </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a>&#160;</td>
           <td class="paramname"><em>topic</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -207,7 +196,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adfb3ac2dfaf8f83580f27867831d48b3"></a>
+<a class="anchor" id="a6184875e6e4311bfaae7838dddf2e582"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -217,13 +206,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="classzserio_1_1IPubsub.html#a98b9eea3270b57fc7c3279b4f75bcb27">SubscriptionId</a> zserio::IPubsub::subscribe </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a>&#160;</td>
           <td class="paramname"><em>topic</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classzserio_1_1IPubsub.html#a21e7e535678fb52ae2d2e9a0388bbaed">OnTopic</a> &amp;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classzserio_1_1IPubsub_1_1OnTopicCallback.html">OnTopicCallback</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>callback</em>, </td>
         </tr>
         <tr>

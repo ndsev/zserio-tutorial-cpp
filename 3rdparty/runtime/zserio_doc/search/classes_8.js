@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pubsubexception',['PubsubException',['../classzserio_1_1PubsubException.html',1,'zserio']]]
+  ['nullopttype',['NullOptType',['../structzserio_1_1NullOptType.html',1,'zserio']]]
 ];

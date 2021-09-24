@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Zserio
-   &#160;<span id="projectnumber">2.3.0</span>
+   &#160;<span id="projectnumber">2.4.0</span>
    </div>
    <div id="projectbrief">C++ runtime library</div>
   </td>
@@ -101,15 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0ce0c42b01e420e955c19dc9dc4b8292"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IService.html#a0ce0c42b01e420e955c19dc9dc4b8292">callMethod</a> (const std::string &amp;methodName, const std::vector&lt; uint8_t &gt; &amp;requestData, std::vector&lt; uint8_t &gt; &amp;responseData, void *context=nullptr)=0</td></tr>
-<tr class="separator:a0ce0c42b01e420e955c19dc9dc4b8292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011035304666a42544255bbf857907fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classzserio_1_1IService.html#a011035304666a42544255bbf857907fe">callMethod</a> (<a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a> methodName, <a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt; requestData, <a class="el" href="classzserio_1_1IBlobBuffer.html">IBlobBuffer</a> &amp;responseData, void *context=nullptr)=0</td></tr>
+<tr class="separator:a011035304666a42544255bbf857907fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generic interface for all Zserio services. </p>
 
-<p>Definition at line <a class="el" href="IService_8h_source.html#l00012">12</a> of file <a class="el" href="IService_8h_source.html">IService.h</a>.</p>
+<p>Definition at line <a class="el" href="IService_8h_source.html#l00015">15</a> of file <a class="el" href="IService_8h_source.html">IService.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0ce0c42b01e420e955c19dc9dc4b8292"></a>
+<a class="anchor" id="a011035304666a42544255bbf857907fe"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -119,19 +119,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void zserio::IService::callMethod </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacezserio.html#add1ed74fccd24644bfba4fc8294c9806">StringView</a>&#160;</td>
           <td class="paramname"><em>methodName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1Span.html">Span</a>&lt; const uint8_t &gt;&#160;</td>
           <td class="paramname"><em>requestData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classzserio_1_1IBlobBuffer.html">IBlobBuffer</a> &amp;&#160;</td>
           <td class="paramname"><em>responseData</em>, </td>
         </tr>
         <tr>
