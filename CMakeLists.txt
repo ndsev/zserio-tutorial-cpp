@@ -3,17 +3,15 @@ project (ZserioTutorialCpp)
 
 option(REGENERATE_CPP_SOURCES "Regenerate C++ sources using the latest zserio from GitHub release" OFF)
 
-set(TUTORIAL_ZSERIO_RUNTIME_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/runtime")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(zserio_download)
+
+download_zserio("${CMAKE_CURRENT_BINARY_DIR}/download" ZSERIO_JAR ZSERIO_RUNTIME_DIR)
+
 set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 if (REGENERATE_CPP_SOURCES)
     find_package(Java REQUIRED)
-
-    set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-    include(zserio_download)
-
-    download_zserio("${CMAKE_CURRENT_BINARY_DIR}/download" ZSERIO_JAR ZSERIO_RUNTIME_DIR)
-    file(COPY "${ZSERIO_RUNTIME_DIR}/" DESTINATION "${TUTORIAL_ZSERIO_RUNTIME_DIR}")
 
     MESSAGE(STATUS "Compiling zserio tutorial schema")
     execute_process(COMMAND ${Java_JAVA_EXECUTABLE} -jar "${ZSERIO_JAR}"
@@ -25,7 +23,7 @@ if (REGENERATE_CPP_SOURCES)
     endif ()
 endif ()
 
-add_subdirectory(${TUTORIAL_ZSERIO_RUNTIME_DIR} runtime)
+add_subdirectory(${ZSERIO_RUNTIME_DIR} runtime)
 
 file(GLOB_RECURSE SOURCES_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.cpp")
 file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h")

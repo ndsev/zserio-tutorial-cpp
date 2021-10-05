@@ -37,33 +37,38 @@ Before we start, make sure you have the following components installed:
 > Now, start to play with tutorial executable `ZserioTutorialCpp` created in `build` directory.
 
 
-We start with a common layout of our project/repo where we put all the source files into a `src` folder and all
-3rd party stuff into `3rdparty`. For simplicity the zserio schema file stays in the project's root folder.
+We start with a common layout of our project/repo where we put all the source files into a `src` folder.
+For simplicity the zserio schema file stays in the project's root folder.
 
-So our folder structure looks like this:
-
-```
-.
-├───3rdparty
-│   └───runtime
-│       └───zserio
-│       └───zserio_doc
-└───src
-```
-
-The `CMakeLists.txt` of zserio C++ runtime library stays in `3rdparty/runtime`.
-
-In addition to the zserio schema file and the zserio compiler we add the following `CMakeLists.txt`
-to the project folder:
+In addition to the zserio schema file, we add the following `CMakeLists.txt` to the project folder:
 
 ```cmake
 cmake_minimum_required (VERSION 3.2 FATAL_ERROR)
 project (ZserioTutorialCpp)
 
-set(TUTORIAL_ZSERIO_RUNTIME_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/runtime")
+option(REGENERATE_CPP_SOURCES "Regenerate C++ sources using the latest zserio from GitHub release" OFF)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(zserio_download)
+
+download_zserio("${CMAKE_CURRENT_BINARY_DIR}/download" ZSERIO_JAR ZSERIO_RUNTIME_DIR)
+
 set(TUTORIAL_ZSERIO_GEN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-add_subdirectory(${TUTORIAL_ZSERIO_RUNTIME_DIR} runtime)
+if (REGENERATE_CPP_SOURCES)
+    find_package(Java REQUIRED)
+
+    MESSAGE(STATUS "Compiling zserio tutorial schema")
+    execute_process(COMMAND ${Java_JAVA_EXECUTABLE} -jar "${ZSERIO_JAR}"
+            -cpp ${TUTORIAL_ZSERIO_GEN_DIR} -src ${CMAKE_CURRENT_SOURCE_DIR} tutorial.zs
+        OUTPUT_VARIABLE ZSERIO_OUTPUT
+        RESULT_VARIABLE ZSERIO_RESULT_CODE)
+    if (ZSERIO_RESULT_CODE)
+        message(FATAL_ERROR "Zserio tool failed!")
+    endif ()
+endif ()
+
+add_subdirectory(${ZSERIO_RUNTIME_DIR} runtime)
 
 file(GLOB_RECURSE SOURCES_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.cpp")
 file(GLOB_RECURSE HEADERS_TUTORIAL_API "${TUTORIAL_ZSERIO_GEN_DIR}/tutorial/*.h")
@@ -77,8 +82,7 @@ target_link_libraries(ZserioTutorialCpplLib ZserioCppRuntime)
 
 add_executable(ZserioTutorialCpp src/Main.cpp)
 
-set_target_properties(ZserioTutorialCpp PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO)
+set_target_properties(ZserioTutorialCpp PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 target_link_libraries(ZserioTutorialCpp ZserioTutorialCpplLib)
 ```
 
@@ -196,15 +200,12 @@ So after generating the code our folder structure looks like this:
 
 ```
 .
-├───3rdparty
-│   └───runtime
-│       └───zserio
-│       └───zserio_doc
 └───src
     └───tutorial
 ```
 
-Let's take a quick look what has been generated. In the `src/tutorial` folder you now find the following files:
+Let's take a quick look what has been generated. In the `src/tutorial` folder you now find the following
+files:
 
 ```
 Employee.h  Experience.h  Language.h  Role.h  Tutorial.cpp
