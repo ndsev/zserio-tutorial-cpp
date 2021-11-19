@@ -6,8 +6,7 @@ This Quick Start tutorial features code generation in C++. Go to the
 if you are interested in hands-on Java or Python with zserio.
 
 You find the complete tutorial in this example. To follow along the description just clone this repo and check
-the sources. For convenience, we have included the corresponded runtime in this repository
-in subfolder `3rdparty`.
+the sources.
 
 The latest build of the zserio compiler and runtime library can be get from
 [Zserio Releases](https://github.com/ndsev/zserio/releases).
