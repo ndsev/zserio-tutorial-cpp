@@ -1,5 +1,13 @@
 # Zserio C++ Quick Start Tutorial
 
+[![](https://github.com/ndsev/zserio-tutorial-cpp/actions/workflows/build_linux.yml/badge.svg)](https://github.com/ndsev/zserio-tutorial-cpp/actions/workflows/build_linux.yml)
+[![](https://github.com/ndsev/zserio-tutorial-cpp/actions/workflows/build_windows.yml/badge.svg)](https://github.com/ndsev/zserio-tutorial-cpp/actions/workflows/build_windows.yml)
+[![](https://img.shields.io/github/watchers/ndsev/zserio-tutorial-cpp.svg)](https://GitHub.com/ndsev/zserio-tutorial-cpp/watchers)
+[![](https://img.shields.io/github/forks/ndsev/zserio-tutorial-cpp.svg)](https://GitHub.com/ndsev/zserio-tutorial-cpp/network/members)
+[![](https://img.shields.io/github/stars/ndsev/zserio-tutorial-cpp.svg?color=yellow)](https://GitHub.com/ndsev/zserio-tutorial-cpp/stargazers)
+
+--------
+
 This Quick Start tutorial features code generation in C++. Go to the
 [Zserio Java tutorial](https://github.com/ndsev/zserio-tutorial-java#zserio-java-quick-start-tutorial) or
 [Zserio Python tutorial](https://github.com/ndsev/zserio-tutorial-python#zserio-python-quick-start-tutorial)

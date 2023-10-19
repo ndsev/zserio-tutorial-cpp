@@ -1,0 +1,63 @@
+name: Windows
+
+on:
+  push:
+    branches: [ master, '*-ci' ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build_windows:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ["windows-latest"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 8
+
+    - name: Build Zserio C++ tutorial
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build . --config Release
+
+    - name: Test Zserio C++ tutorial
+      run: |
+        build/Release/ZserioTutorialCpp write_joe
+        build/Release/ZserioTutorialCpp read
+        build/Release/ZserioTutorialCpp write_boss
+        build/Release/ZserioTutorialCpp read
+      shell: bash
+
+    - name: Build Zserio C++ tutorial (sources regeneration)
+      run: |
+        cd build
+        rm -rd *
+        cmake .. -DREGENERATE_CPP_SOURCES=ON
+        cmake --build . --config Release
+      shell: bash
+
+    - name: Test Zserio C++ tutorial (sources regeneration)
+      run: |
+        build/Release/ZserioTutorialCpp write_joe
+        build/Release/ZserioTutorialCpp read
+        build/Release/ZserioTutorialCpp write_boss
+        build/Release/ZserioTutorialCpp read
+      shell: bash
+
+    - name: Archive Zserio C++ tutorial binary
+      uses: actions/upload-artifact@v3
+      with:
+        name: zserio-tutorial-cpp-windows
+        path: build/Release/ZserioTutorialCpp.exe
