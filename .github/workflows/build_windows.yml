@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'
 
 jobs:
   build_windows:
@@ -59,5 +61,5 @@ jobs:
     - name: Archive Zserio C++ tutorial binary
       uses: actions/upload-artifact@v3
       with:
-        name: zserio-tutorial-cpp-windows
+        name: zserio-tutorial-cpp-${{matrix.os}}
         path: build/Release/ZserioTutorialCpp.exe
