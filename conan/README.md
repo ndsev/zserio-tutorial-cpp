@@ -67,7 +67,7 @@ target_link_libraries(ZserioTutorialCpp PRIVATE tutorial_zs) # link the library 
 
 Just go to the `conan` folder and run the following command:
 ```
-conan --build . --output=build --build=missing
+conan build . --output=build --build=missing
 ```
 
 Zserio conan package is automatically installed (`--build=missing`), zserio sources are generated
