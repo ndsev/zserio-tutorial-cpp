@@ -27,6 +27,18 @@ jobs:
         distribution: temurin
         java-version: 8
 
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Conan v2
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install conan>=2.0
+        conan profile detect
+      shell: bash
+
     - name: Build Zserio C++ tutorial
       run: |
         mkdir build
@@ -56,6 +68,19 @@ jobs:
         build/Release/ZserioTutorialCpp read
         build/Release/ZserioTutorialCpp write_boss
         build/Release/ZserioTutorialCpp read
+      shell: bash
+
+    - name: Build Zserio C++ tutorial for Conan users
+      run: |
+        conan build ./conan --build=missing --output=build_conan
+      shell: bash
+
+    - name: Test Zserio C++ tutorial for Conan users
+      run: |
+        build_conan/Release/ZserioTutorialCpp write_joe
+        build_conan/Release/ZserioTutorialCpp read
+        build_conan/Release/ZserioTutorialCpp write_boss
+        build_conan/Release/ZserioTutorialCpp read
       shell: bash
 
     - name: Archive Zserio C++ tutorial binary

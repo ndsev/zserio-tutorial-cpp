@@ -29,6 +29,9 @@ Before we start, make sure you have the following components installed:
 - Java JRE
 - CMake
 
+> **For Conan Users**<br/>
+> If you wish to use conan with this tutorial, simply switch to [conan/README.md](conan/README.md).
+
 ## Set up dev environment
 
 > Everything has been already set up for you in this repository. If you are very impatient, just go to the
@@ -182,7 +185,7 @@ and reports errors and warnings. In addition, the zserio compiler generates code
 and may generate HTML documentation. For a complete overview of available options, please refer to the
 [Zserio Compiler User Guide](https://github.com/ndsev/zserio/blob/master/doc/ZserioUserGuide.md#zserio-compiler-user-guide).
 
-So let's generate some C++ code. Because zserio compiler is not available in this repository, we have 
+So let's generate some C++ code. Because zserio compiler is not available in this repository, we have
 prepared `CMakeLists.txt` which will download the latest zserio compiler release together with corresponded C++
 runtime library from GitHub and generate C++ code. So, it's enough just to run the following command:
 
@@ -290,6 +293,11 @@ Don't forget to set Joe's skills:
 joe.setSkills(skills);
 ```
 
+> Note that the l-value setter `setSkills(const std::vector<tutorial::Experience>&)` will perform a copy of
+> the skills vector. It can be bypassed either by using a non-const getter
+> `std::vector<tutorial::Experience>& getSkills()` and populating it directly or using the r-value setter
+> `setSkills(std::vector<tutorial::Experience>&&)`.
+
 After we have set all the fields, we have to declare a BitStreamWriter and write the stream:
 
 ```cpp
@@ -369,6 +377,16 @@ if (employee.isBonusUsed())
 
 For the rest of the processing please refer to the code. You should have gotten the main point by now.
 
+## Play with the compiled tutorial
+
+You can find the compiled `ZserioTutorialCpp` executable in the `build` folder.
+
+```bash
+build/ZserioTutorialCpp # prints usage
+build/ZserioTutorialCpp write_joe # creates the employee.zsb which contains serialized Joe's data
+build/zserioTutorialCpp read # deserializes the employee.zsb and prints out info about the employee
+```
+
 ## Additions you will find in the code
 
 There are some other features that we used in the code in this repo that we would like to point out briefly:
@@ -423,7 +441,7 @@ You can simply access the symbol name of any enumeration as a string:
 const tutorial::Language language = it->getProgrammingLanguage();
 
 /* get string representation of Language enum value */
-const std::string languageString = language.toString();
+const std::string languageString = ::zserio::enumToString(language);
 ```
 
 Of course checking for the value has better runtime performance once you do comparisons. But for debug purposes
