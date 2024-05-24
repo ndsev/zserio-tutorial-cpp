@@ -6,7 +6,7 @@ class ZserioTutorialCppRecipe(ConanFile):
     generators = "CMakeDeps"
 
     def requirements(self):
-        self.requires("zserio/2.14.0")
+        self.requires("zserio/[>=2.14.0]")
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.15]")

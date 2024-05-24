@@ -11,7 +11,6 @@ add_library(tutorial_zs STATIC ../tutorial.zs)
 zserio_generate_cpp(
     TARGET tutorial_zs
     SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..
-    MAIN_ZS tutorial.zs # can be omitted when exactly matches the path used in add_library above
     GEN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 target_link_libraries(tutorial_zs PUBLIC zserio::ZserioCppRuntime)
