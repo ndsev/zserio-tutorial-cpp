@@ -77,6 +77,34 @@ jobs:
         build_conan/ZserioTutorialCpp write_boss
         build_conan/ZserioTutorialCpp read
 
+    - name: Build Zserio C++ custom memory management tutorial
+      run: |
+        mkdir build_pmr
+        cd build_pmr
+        cmake ../pmr -DCMAKE_BUILD_TYPE=Release
+        cmake --build .
+
+    - name: Test Zserio C++ custom memory management tutorial
+      run: |
+        build_pmr/ZserioTutorialCppPmr write_joe
+        build_pmr/ZserioTutorialCppPmr read
+        build_pmr/ZserioTutorialCppPmr write_boss
+        build_pmr/ZserioTutorialCppPmr read
+
+    - name: Build Zserio C++ custom memory management tutorial (sources regeneration)
+      run: |
+        cd build_pmr
+        rm -rd *
+        cmake ../pmr -DCMAKE_BUILD_TYPE=Release -DREGENERATE_CPP_SOURCES=ON
+        cmake --build .
+
+    - name: Test Zserio C++ custom memory management tutorial (sources regeneration)
+      run: |
+        build_pmr/ZserioTutorialCppPmr write_joe
+        build_pmr/ZserioTutorialCppPmr read
+        build_pmr/ZserioTutorialCppPmr write_boss
+        build_pmr/ZserioTutorialCppPmr read
+
     - name: Archive Zserio C++ tutorial binary
       uses: actions/upload-artifact@v3
       with:

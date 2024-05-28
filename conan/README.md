@@ -1,4 +1,4 @@
-# Zserio C++ Quick Start Tutorial - Instructions for Conan Users
+# Instructions for Conan Users
 
 ## Installation & Prerequisites
 

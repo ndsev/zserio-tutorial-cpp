@@ -32,6 +32,10 @@ Before we start, make sure you have the following components installed:
 > **For Conan Users**<br/>
 > If you wish to use conan with this tutorial, simply switch to [conan/README.md](conan/README.md).
 
+> **Custom Memory Management with Polymorphic Allocators**<br/>
+> If you wish to learn more about memory management using polymorphic allocators, simply switch to
+> [pmr/README.md](pmr/README.md).
+
 ## Set up dev environment
 
 > Everything has been already set up for you in this repository. If you are very impatient, just go to the
@@ -243,10 +247,7 @@ Then open up your favorite IDE and start using the zserio classes by including t
 that we want to use.
 
 ```cpp
-#include <zserio/BitStreamReader.h>
-#include <zserio/BitStreamWriter.h>
-#include <zserio/BitBuffer.h>
-#include <zserio/FileUtil.h>
+#include <zserio/SerializeUtil.h>
 #include <zserio/Enums.h>
 #include "tutorial/Employee.h"
 ```
@@ -298,30 +299,11 @@ joe.setSkills(skills);
 > `std::vector<tutorial::Experience>& getSkills()` and populating it directly or using the r-value setter
 > `setSkills(std::vector<tutorial::Experience>&&)`.
 
-After we have set all the fields, we have to declare a BitStreamWriter and write the stream:
+After we have set all the fields, we have to serialize an employee Joe to the file:
 
 ```cpp
-zserio::BitBuffer bitBuffer(joe.bitSizeOf());
-zserio::BitStreamWriter writer(bitBuffer);
-joe.write(writer);
+zserio::serializeToFile(joe, "employee.zsb");
 ```
-
-`bitSizeOf()` method in zserio returns the actual bit size needed for serialization of the structures.
-
-You may now write the stream to the disk using:
-
-```cpp
-zserio::writeBufferToFile(writer, "employee.zsb");
-```
-
-You might as well access the BitstreamWriter's buffer by:
-
-```cpp
-const uint8_t* buffer = writer.getWriteBuffer();
-const size_t bufferBitSize = writer.getBufferBitSize();
-```
-
-You could also use the buffer for any other purpose like sending it over rpc or use it internally.
 
 **Voila!** You have just serialized your first data with zserio.
 
@@ -345,19 +327,11 @@ boss.setBonus(10000);
 
 The rest is pretty similar. Check the code to see the rest.
 
-When deserializing the zserio bit stream, we start with reading the file to BitBuffer together with
-BitStreamReader construction:
+When deserializing the zserio bit stream, we can call `deserializeFromFile` utility from the runtime library.
+After this call all the fields within `employee` will be set.
 
 ```cpp
-const zserio::BitBuffer bitBuffer = zserio::readBufferFromFile(employee.zsb);
-zserio::BitStreamReader reader(bitBuffer);
-```
-
-We declare an object of class Employee and deserialize the buffer with the help of the BitStreamReader we just
-created. After this call all the fields within `employee` will be set.
-
-```cpp
-tutorial::Employee employee(reader);
+const tutorial::Employee employee = zserio::deserializeFromFile<tutorial::Employee>(employeeFile);
 ```
 
 We can now access the filled employee object via the respective getters. We still need to check for optionals
