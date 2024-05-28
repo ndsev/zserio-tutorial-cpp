@@ -87,8 +87,8 @@ jobs:
       run: |
         mkdir build_pmr
         cd build_pmr
-        cmake ../pmr -DCMAKE_BUILD_TYPE=Release
-        cmake --build .
+        cmake ../pmr
+        cmake --build . --config Release
       shell: bash
 
     - name: Test Zserio C++ custom memory management tutorial
@@ -103,8 +103,8 @@ jobs:
       run: |
         cd build_pmr
         rm -rd *
-        cmake ../pmr -DCMAKE_BUILD_TYPE=Release -DREGENERATE_CPP_SOURCES=ON
-        cmake --build .
+        cmake ../pmr -DREGENERATE_CPP_SOURCES=ON
+        cmake --build . --config Release
       shell: bash
 
     - name: Test Zserio C++ custom memory management tutorial (sources regeneration)
