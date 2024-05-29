@@ -32,10 +32,6 @@ Before we start, make sure you have the following components installed:
 > **For Conan Users**<br/>
 > If you wish to use conan with this tutorial, simply switch to [conan/README.md](conan/README.md).
 
-> **Custom Memory Management with Polymorphic Allocators**<br/>
-> If you wish to learn more about memory management using polymorphic allocators, simply switch to
-> [pmr/README.md](pmr/README.md).
-
 ## Set up dev environment
 
 > Everything has been already set up for you in this repository. If you are very impatient, just go to the
@@ -426,3 +422,10 @@ In the tutorial we use `bitSizeOf()` method as well for plain informational purp
 ```cpp
 std::cout << "Bit size of employee: " << employee.bitSizeOf() << std::endl;
 ```
+
+## Advanced Features
+
+### Custom Memory Management with Polymorphic Allocators
+
+If you wish to learn more about memory management using polymorphic allocators, simply switch to
+[pmr/README.md](pmr/README.md).
