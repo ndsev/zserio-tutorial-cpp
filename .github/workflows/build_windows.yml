@@ -116,7 +116,7 @@ jobs:
       shell: bash
 
     - name: Archive Zserio C++ tutorial binary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: zserio-tutorial-cpp-${{matrix.os}}
         path: build/Release/ZserioTutorialCpp.exe
