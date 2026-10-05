@@ -120,3 +120,11 @@ jobs:
       with:
         name: zserio-tutorial-cpp-${{matrix.os}}
         path: build/Release/ZserioTutorialCpp.exe
+
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
