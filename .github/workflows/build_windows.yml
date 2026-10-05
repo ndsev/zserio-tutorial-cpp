@@ -60,6 +60,9 @@ jobs:
         rm -rd *
         cmake .. -DREGENERATE_CPP_SOURCES=ON
         cmake --build . --config Release
+        cd ..
+        git add --intent-to-add --all -- src
+        git diff --exit-code -- src
       shell: bash
 
     - name: Test Zserio C++ tutorial (sources regeneration)
@@ -105,6 +108,9 @@ jobs:
         rm -rd *
         cmake ../pmr -DREGENERATE_CPP_SOURCES=ON
         cmake --build . --config Release
+        cd ..
+        git add --intent-to-add --all -- pmr/src
+        git diff --exit-code -- pmr/src
       shell: bash
 
     - name: Test Zserio C++ custom memory management tutorial (sources regeneration)
