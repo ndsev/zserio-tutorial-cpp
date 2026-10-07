@@ -58,6 +58,9 @@ jobs:
         rm -rd *
         cmake .. -DCMAKE_BUILD_TYPE=Release -DREGENERATE_CPP_SOURCES=ON
         cmake --build .
+        cd ..
+        git add --intent-to-add --all -- src
+        git diff --exit-code -- src
 
     - name: Test Zserio C++ tutorial (sources regeneration)
       run: |
@@ -97,6 +100,9 @@ jobs:
         rm -rd *
         cmake ../pmr -DCMAKE_BUILD_TYPE=Release -DREGENERATE_CPP_SOURCES=ON
         cmake --build .
+        cd ..
+        git add --intent-to-add --all -- pmr/src
+        git diff --exit-code -- pmr/src
 
     - name: Test Zserio C++ custom memory management tutorial (sources regeneration)
       run: |
@@ -110,3 +116,11 @@ jobs:
       with:
         name: zserio-tutorial-cpp-${{matrix.os}}
         path: build/ZserioTutorialCpp
+
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1

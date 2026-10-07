@@ -15,7 +15,7 @@ if (REGENERATE_CPP_SOURCES)
 
     MESSAGE(STATUS "Compiling zserio tutorial schema")
     execute_process(COMMAND ${Java_JAVA_EXECUTABLE} -jar "${ZSERIO_JAR}"
-            -cpp ${TUTORIAL_ZSERIO_GEN_DIR} -src ${CMAKE_CURRENT_SOURCE_DIR} tutorial.zs
+            -cpp ${TUTORIAL_ZSERIO_GEN_DIR} -src ${CMAKE_CURRENT_SOURCE_DIR} tutorial.zs -ignoreTimestamps
         OUTPUT_VARIABLE ZSERIO_OUTPUT
         RESULT_VARIABLE ZSERIO_RESULT_CODE)
     if (ZSERIO_RESULT_CODE)
